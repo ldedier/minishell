@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/11 20:57:00 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/12 20:49:53 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int					ft_memcmp(void const *s1, void const *s2, size_t n);
 size_t				ft_strlen(char const *s);
 char				*ft_strdup(char const *s);
 char				*ft_strndup(char const *s, int n);
+char				*ft_strnrest(char *str, int n);
 char				*ft_strcpy(char *dest, char const *src);
 char				*ft_strncpy(char *dest, char const *src, size_t n);
 char				*ft_strcat(char *dest, char const *src);
@@ -82,6 +83,7 @@ char				*ft_strjoin_free(char *s1, char *s2);
 char				*ft_strnjoin_free(char *s1, char *s2, size_t n);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
+char				**ft_split_whitespace(char const *s);
 char				*ft_itoa(int n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);

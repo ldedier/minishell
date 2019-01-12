@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/12 13:39:53 by ldedier           #+#    #+#              #
-#    Updated: 2019/01/12 13:40:37 by ldedier          ###   ########.fr        #
+#    Updated: 2019/01/12 22:29:32 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBFT = $(LIBFTDIR)/libft.a
 OK_COLOR = \x1b[32;01m
 EOC = \033[0m
 
-SRCS_NO_PREFIX		= main.c
+SRCS_NO_PREFIX		= main.c builtins.c env.c execute.c init.c tools.c
 
 INCLUDES_NO_PREFIX	= minishell.h
 
@@ -40,7 +40,8 @@ INCLUDES = $(addprefix $(INCLUDESDIR)/, $(INCLUDES_NO_PREFIX))
 
 INC = -I $(INCLUDESDIR) -I $(LIBFTDIR)/$(LIBFT_INCLUDEDIR)\
 
-CFLAGS = -DPATH=$(PWD) -Wall -Wextra -Werror $(INC)
+CFLAGS = -DPATH=$(PWD) -Wall -Wextra -Werror $(INC) \
+		 -Wno-error=unused-variable -Wno-error=unused-parameter
 LFLAGS = -L $(LIBFTDIR) -lft
 
 ifeq ($(DEBUG), 1)
