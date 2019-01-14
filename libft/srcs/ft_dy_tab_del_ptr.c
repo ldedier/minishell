@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnrest.c                                      :+:      :+:    :+:   */
+/*   ft_dy_tab_del_ptr.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/12 20:47:06 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 16:34:17 by ldedier          ###   ########.fr       */
+/*   Created: 2019/01/14 15:03:02 by ldedier           #+#    #+#             */
+/*   Updated: 2019/01/14 15:03:09 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnrest(char *str, int n)
+void	ft_dy_tab_del_ptr(t_dy_tab *d_tab)
 {
-	char	*res;
-	int		len;
+	int i;
 
-	len = ft_strlen(str);
-	if (!(res = ft_strndup(&str[n], len - n)))
-		return (NULL);
-	return (res);
+	i = 0;
+	while ((size_t)i < d_tab->current_size)
+	{
+		free(d_tab->tab[i]);
+		i++;
+	}
+	free(d_tab->tab);
+	free(d_tab);
 }

@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnrest.c                                      :+:      :+:    :+:   */
+/*   ft_dy_tab_realloc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/12 20:47:06 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 16:34:17 by ldedier          ###   ########.fr       */
+/*   Created: 2019/01/14 16:00:04 by ldedier           #+#    #+#             */
+/*   Updated: 2019/01/14 16:04:00 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnrest(char *str, int n)
+int		ft_dy_tab_realloc(t_dy_tab *d_tab)
 {
-	char	*res;
-	int		len;
+	void **tmp;
 
-	len = ft_strlen(str);
-	if (!(res = ft_strndup(&str[n], len - n)))
-		return (NULL);
-	return (res);
+	if (!(tmp = (void **)malloc(sizeof(void *) * ((d_tab->max_size * 2) + 1))))
+		return (1);
+	ft_memcpy(tmp, d_tab->tab, sizeof(void *) * d_tab->current_size);
+	free(d_tab->tab);
+	d_tab->tab = tmp;
+	d_tab->max_size *= 2;
+	return (0);
 }

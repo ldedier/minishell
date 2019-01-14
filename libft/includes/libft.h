@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/12 20:49:53 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/14 16:11:33 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ typedef struct		s_tree
 	struct s_tree	*left;
 	struct s_tree	*right;
 }					t_tree;
+
+typedef struct		s_dy_tab
+{
+	void			**tab;
+	size_t			current_size;
+	size_t			max_size;
+}					t_dy_tab;
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -159,4 +166,13 @@ int					ft_free_turn(void *to_free, int ret);
 int					ft_is_in_str(const char *str, char c);
 long long int		ft_atoll(const char *str);
 int					ft_round(double value);
+t_dy_tab			*ft_dy_tab_new(size_t max_size);
+int					ft_dy_tab_add_ptr(t_dy_tab *d_tab, void *to_add);
+int					ft_dy_tab_add_index_ptr(t_dy_tab *d_tab, void *to_add,
+						size_t index);
+void				ft_dy_tab_suppr_index(t_dy_tab *d_tab, size_t index);
+void				ft_dy_tab_del_ptr(t_dy_tab *d_tab);
+void				ft_dy_tab_del(t_dy_tab *d_tab);
+void				ft_dy_tab_suppr_index_ptr(t_dy_tab *d_tab, size_t index);
+int					ft_dy_tab_realloc(t_dy_tab *d_tab);
 #endif

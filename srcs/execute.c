@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/12 22:34:13 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/14 16:46:52 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		process_execute(char *path, char **params, t_shell *shell)
 	if (parent > 0)
 		wait(NULL);
 	else
-		execve(path, params, shell->env_container.env);
+		execve(path, params, (char **)shell->env->tab);
 	return (0);
 }
 
@@ -74,10 +74,9 @@ int		execute_command(char **params, t_shell *shell)
 	char	**path_split;
 	int		i;
 	char	*full_path;
-
 	if (execute_builtin(params, shell))
 		return (0);
-	if ((path_str = get_env_value(shell->env_container.entries, "PATH")))
+	if ((path_str = get_env_value((char **)shell->env->tab, "PATH")))
 	{
 		if (!(path_split = ft_strsplit(path_str, ':')))
 			return (1);

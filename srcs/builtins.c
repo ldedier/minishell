@@ -6,14 +6,15 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:18:50 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/12 22:31:17 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/15 00:12:18 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_process_ms_cd(char *path)
+int		ft_process_ms_cd(char *path, int flag)
 {
+	(void) flag;
 	if (chdir(path) != 0)
 	{
 		if (access(path, F_OK))
@@ -30,62 +31,59 @@ int		ft_process_ms_cd(char *path)
 int		ms_cd(char **params, t_shell *shell)
 {
 	char	*home_str;
+	int		i;
+	int 	flag;
+	char	*str;
 
-	if (ft_splitlen(params) == 1)
-	{
-		if ((home_str = get_env_value(shell->env_container.entries, "HOME")))
-			return (ft_process_ms_cd(home_str));
-		else
-			return (1);
-	}
-	else
-		return (ft_process_ms_cd(params[1]));
-	return (1);
-}
-
-int		ms_echo(char **params)
-{
-	int i;
-
+	flag = 0;
 	i = 1;
 	while (params[i])
 	{
-		if (i != 1)
-			ft_printf(" %s", params[i]);
+		if (!ft_strcmp(params[i], "-P"))
+			flag = 1;
+		else if (!ft_strcmp(params[i], "-L"))
+			flag = 2;
 		else
-			ft_printf("%s", params[i]);
+		{
+			if (!ft_strcmp("-", params[i]))
+			{
+				if ((str = get_env_value((char **)shell->env->tab, "OLDPWD")))
+				{
+					ft_process_ms_cd(str, flag);
+				//	execute_command(pwd, shell);
+				}
+			}
+			else
+				return (ft_process_ms_cd(params[i], flag));
+		}
 		i++;
 	}
-	ft_printf("\n");
-	return (1);
-}
-
-int		ms_setenv(char **params, t_shell *shell)
-{
+	if ((home_str = get_env_value((char **)shell->env->tab, "HOME")))
+		return (ft_process_ms_cd(home_str, flag));
+	else
+		return (1);
 	return (1);
 }
 
 int		ms_unsetenv(char **params, t_shell *shell)
 {
-	return (1);
-}
-
-int		ms_env(char **params, t_shell *shell)
-{
 	int i;
 
-	i = 0;
-	while (shell->env_container.env[i])
+	if (ft_splitlen(params) == 1)
+		return (1);
+	else
 	{
-		ft_printf("%s\n", shell->env_container.env[i]);
-		i++;
+		i = 0;
+		while (shell->env->tab[i])
+		{
+			if (is_key_of_entry(shell->env->tab[i], params[1]))
+			{
+				ft_dy_tab_suppr_index(shell->env, i);
+				break;
+			}
+			i++;
+		}
 	}
-	return (1);
-}
-
-int		ms_exit(char **params, t_shell *shell)
-{
-	shell->running = 0;
 	return (1);
 }
 

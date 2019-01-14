@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnrest.c                                      :+:      :+:    :+:   */
+/*   ft_dy_tab_new.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/12 20:47:06 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 16:34:17 by ldedier          ###   ########.fr       */
+/*   Created: 2019/01/14 14:08:58 by ldedier           #+#    #+#             */
+/*   Updated: 2019/01/14 15:45:41 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnrest(char *str, int n)
+t_dy_tab	*ft_dy_tab_new(size_t max_size)
 {
-	char	*res;
-	int		len;
+	t_dy_tab *res;
 
-	len = ft_strlen(str);
-	if (!(res = ft_strndup(&str[n], len - n)))
+	if (!(res = (t_dy_tab *)malloc(sizeof(t_dy_tab))))
 		return (NULL);
+	res->current_size = 0;
+	res->max_size = max_size;
+	if (!(res->tab = malloc(max_size * (sizeof(void *) + 1))))
+	{
+		free(res);
+		return (NULL);
+	}
 	return (res);
 }

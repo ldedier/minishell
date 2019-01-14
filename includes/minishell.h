@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/12 22:29:20 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/14 23:44:44 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,10 @@ typedef struct		s_env_entry
 	char			*value;
 }					t_env_entry;
 
-typedef struct		s_env_container
-{
-	t_list			*entries;
-	char			**env;
-}					t_env_container;
-
 typedef struct		s_shell
 {
 	char			running;
-	t_env_container	env_container;
+	t_dy_tab		*env;
 }					t_shell;
 
 int					ms_cd(char **params, t_shell *shell);
@@ -49,7 +43,8 @@ int					ms_exit(char **params, t_shell *shell);
 
 int					execute_builtin(char **params, t_shell *shell);
 
-char				*get_env_value(t_list *entries, char *key);
+char				*get_env_value(char **env, char *key);
+char				*get_env_entry(char **env, char *key);
 t_env_entry			*ft_new_entry_from_str(char *str);
 char				**convert_entries_to_env(t_list *entries);
 int					ft_update_env(t_shell *shell);
@@ -58,5 +53,6 @@ int					execute_command(char **params, t_shell *shell);
 int					ft_init_shell(t_shell *shell, char **env);
 
 int					get_file_in_dir(char *filename, char *dirname);
-
+int					is_key_of_entry(char *entry, char *key);
+int					preprocess_expansions(char **params, t_shell *shell);
 #endif

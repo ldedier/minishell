@@ -1,36 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   other_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/12 22:27:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 16:59:17 by ldedier          ###   ########.fr       */
+/*   Created: 2019/01/14 22:31:56 by ldedier           #+#    #+#             */
+/*   Updated: 2019/01/14 22:31:59 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_init_shell(t_shell *shell, char **env)
+int		ms_echo(char **params)
 {
-	int			i;
-	char		*str;
+	int i;
 
-	shell->running = 1;
-	if (!(shell->env = ft_dy_tab_new(64)))
-		return (1);
-	i = 0;
-	while (env[i])
+	i = 1;
+	while (params[i])
 	{
-		if (!(str = ft_strdup(env[i])))
-			return (1);
-		if (ft_dy_tab_add_ptr(shell->env, str))
-		{
-			ft_dy_tab_del(shell->env);
-			return (1);
-		}
+		if (i != 1)
+			ft_printf(" %s", params[i]);
+		else
+			ft_printf("%s", params[i]);
 		i++;
 	}
-	return (0);
+	ft_printf("\n");
+	return (1);
+}
+
+int		ms_env(char **params, t_shell *shell)
+{
+	int i;
+
+	i = 0;
+	while (shell->env->tab[i])
+	{
+		ft_printf("%s\n", shell->env->tab[i]);
+		i++;
+	}
+	return (1);
+}
+
+int		ms_exit(char **params, t_shell *shell)
+{
+	shell->running = 0;
+	return (1);
 }

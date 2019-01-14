@@ -6,11 +6,19 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:37:25 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/12 22:30:52 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/14 23:44:11 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void __attribute__((destructor)) end();
+
+void    end(void)
+{
+	ft_printf("destructor loop\n");
+	while(1);
+}
 
 int		await_command(t_shell *shell)
 {
@@ -25,7 +33,10 @@ int		await_command(t_shell *shell)
 	if (ft_splitlen(params) == 0)
 		return (0);
 	else
+	{
+		preprocess_expansions(params, shell);
 		execute_command(params, shell);
+	}
 	ft_free_split(params);
 	return (0);
 }
@@ -36,6 +47,7 @@ int main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+
 	ft_init_shell(&shell, env);
 	while (shell.running)
 	{
