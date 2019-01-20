@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 23:42:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 23:43:11 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/21 00:12:35 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		describe_entry(char *param, char *entry, char **env_value)
 		return (0);
 	i = 1;
 	while (param[i] && entry[i - 1]	&&
-			param[i] ==  entry[i - 1] &&entry[i - 1] != '=')
+			param[i] ==  entry[i - 1] && entry[i - 1] != '=')
 		i++;
 	if (!param[i] && entry[i - 1] == '=')
 	{
@@ -53,33 +53,138 @@ int		get_env_expansion_value(char *param, t_dy_tab *env, char **env_value)
 		i++;
 		}
 	}
-	return (0);
+	*env_value = ft_strdup("");
+	return (1);
 }
 
-int		preprocess_expansions(char **params, t_shell *shell)
+int		ft_end_expansion(char c)
+{
+	return (ft_isseparator(c) || c == '$');
+}
+
+int		should_escape_char(char c)
+{
+	return (c == '"' || c == '\\');
+}
+
+char	*get_escaped_str(char *str)
 {
 	int		i;
 	int		len;
-	int		ret;
-	char	*env_value;
+	char	*res;
 
 	i = 0;
-	while (params[i])
+	len = 0;
+	while (str[i])
 	{
-		if (params[i][0] == '$' || !ft_strcmp(params[i], "~"))
+		if (should_escape_char(str[i++]))
+			len++;
+		len++;
+	}
+	if (!(res = ft_strnew(len)))
+		return (NULL);
+	i = 0;
+	len = 0;
+	while (str[i])
+	{
+		if (should_escape_char(str[i]))
+			res[len++] = '\\';
+		res[len++] = str[i++];
+	}
+	res[len] = '\0';
+	return (res);
+}
+
+void	ft_suppr_n_char_index(char *str, int index, int len)
+{
+	int i;
+
+	ft_printf("%d %d\n", index, len);
+	i = index;
+	while (str[i + len])
+	{
+		str[i] = str[i + len];
+		i++;
+	}
+	str[i] = '\0';
+}
+
+int		ft_inject_str_in_str(char **str, char *to_inject, int start_index)
+{
+	char	*tmp;
+	int		receiver_len;
+	int		to_inject_len;
+
+	to_inject_len = ft_strlen(to_inject);
+	receiver_len = ft_strlen(*str);
+	if (!(tmp = ft_strnew(to_inject_len + receiver_len)))
+		return (1);
+	ft_memcpy(tmp, *str, start_index);
+	ft_memcpy(&tmp[start_index], to_inject, to_inject_len);
+	ft_memcpy(&tmp[start_index + to_inject_len], str[start_index],
+			receiver_len - start_index);
+	ft_printf("%s\n", tmp);
+	return (0);
+}
+
+int		ft_substitute_by_env(char **str, int start, int len, t_shell *shell)
+{
+	char	*exp_str;
+	char	*env_value;
+	char	*escaped_value;
+
+	if (!len)
+		return (0);
+	if (!(exp_str = ft_strndup(&((*str)[start]), len)))
+		return (1);
+	if (!(env_value = get_env_value((char **)shell->env->tab, exp_str)))
+	{
+		if (!(escaped_value = ft_strnew(0)))
+			return (1);
+	}
+	else
+	{
+		if (!(escaped_value = get_escaped_str(env_value)))
+			return (1);
+	}
+	ft_suppr_n_char_index(*str, start - 1, len + 1);
+	ft_printf("%s\n", *str);
+	if (ft_inject_str_in_str(str, escaped_value, start))
+		ft_printf("escaped_value: %s\n", escaped_value);
+	return (0);
+}
+
+
+int		preprocess_expansions_str(char *str, t_shell *shell)
+{
+	int		i;
+	char	parse_exp;
+	int		exp_start;
+
+	parse_exp = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (parse_exp && ft_end_expansion(str[i]))
 		{
-			if ((ret = get_env_expansion_value(params[i],
-					shell->env, &env_value)))
-			{
-				if (env_value == NULL)
-					return (1);
-				free(params[i]);
-				params[i] = env_value;
-			}
+			if (ft_substitute_by_env(&str, exp_start, i - exp_start, shell))
+				return (1);
+			if (str[i] != '$')
+				parse_exp = 0;
 			else
-				params[i][0] = 0;
+				exp_start = i + 1;
+		}
+		else if (!parse_exp && str[i] == '$')
+		{
+			parse_exp = 1;
+			exp_start = i + 1;
 		}
 		i++;
+	}
+	if (parse_exp)
+	{
+		if (ft_substitute_by_env(&str, exp_start, i - exp_start, shell))
+			return (1);
 	}
 	return (0);
 }

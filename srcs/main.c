@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:37:25 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/20 04:47:46 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/20 23:04:41 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		await_command(t_shell *shell)
 
 	if (get_next_line(0, &command) == -1)
 		return (1);
+	preprocess_expansions_str(command, shell);
 	if (!(params = ft_split_whitespace(command)))
 		return (1);
 	free(command);
@@ -34,7 +35,7 @@ int		await_command(t_shell *shell)
 		return (0);
 	else
 	{
-		preprocess_expansions(params, shell);
+		//preprocess_expansions(params, shell);
 		execute_command(params, shell);
 	}
 	ft_free_split(params);

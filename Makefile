@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/12 13:39:53 by ldedier           #+#    #+#              #
-#    Updated: 2019/01/14 23:43:40 by ldedier          ###   ########.fr        #
+#    Updated: 2019/01/20 17:14:33 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ OK_COLOR = \x1b[32;01m
 EOC = \033[0m
 
 SRCS_NO_PREFIX		=	main.c builtins.c env.c execute.c init.c tools.c\
-						set_env.c other_builtins.c expansions.c
+						set_env.c other_builtins.c expansions.c cd.c
 
 INCLUDES_NO_PREFIX	= minishell.h
 
