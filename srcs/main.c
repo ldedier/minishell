@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:37:25 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 23:44:11 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/20 04:47:46 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int main(int argc, char **argv, char **env)
 	ft_init_shell(&shell, env);
 	while (shell.running)
 	{
-		ft_printf(CYAN BOLD "$MyMiniShell> "EOC);
+		ft_printf(CYAN BOLD "$MiShell> "EOC);
 		await_command(&shell);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 23:44:44 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/20 05:45:03 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 # include <sys/wait.h>
 
 # define CWD_LEN	2048
+# define SH_NAME	"minishell"
+
+typedef enum		e_cd_opt
+{
+	e_cd_opt_logic,
+	e_cd_opt_physic,
+}					t_cd_opt;
 
 typedef struct		s_env_entry
 {
@@ -55,4 +62,5 @@ int					ft_init_shell(t_shell *shell, char **env);
 int					get_file_in_dir(char *filename, char *dirname);
 int					is_key_of_entry(char *entry, char *key);
 int					preprocess_expansions(char **params, t_shell *shell);
+int					add_to_env(t_shell *shell, char *key, char *value);
 #endif

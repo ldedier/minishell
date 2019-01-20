@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 16:46:52 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/20 01:34:45 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		execute_command(char **params, t_shell *shell)
 	char	**path_split;
 	int		i;
 	char	*full_path;
+
 	if (execute_builtin(params, shell))
 		return (0);
 	if ((path_str = get_env_value((char **)shell->env->tab, "PATH")))
