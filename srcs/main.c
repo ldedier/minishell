@@ -27,7 +27,7 @@ int		await_command(t_shell *shell)
 
 	if (get_next_line(0, &command) == -1)
 		return (1);
-	preprocess_expansions_str(command, shell);
+	preprocess_expansions_str(&command, shell);
 	if (!(params = ft_split_whitespace(command)))
 		return (1);
 	free(command);

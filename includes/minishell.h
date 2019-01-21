@@ -39,6 +39,7 @@ typedef struct		s_shell
 {
 	char			running;
 	t_dy_tab		*env;
+	int				expand_diff;
 }					t_shell;
 
 int					ms_cd(char **params, t_shell *shell);
@@ -63,5 +64,5 @@ int					get_file_in_dir(char *filename, char *dirname);
 int					is_key_of_entry(char *entry, char *key);
 int					preprocess_expansions(char **params, t_shell *shell);
 int					add_to_env(t_shell *shell, char *key, char *value);
-int					preprocess_expansions_str(char *str, t_shell *shell);
+int					preprocess_expansions_str(char **str, t_shell *shell);
 #endif

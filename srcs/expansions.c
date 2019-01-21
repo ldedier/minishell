@@ -99,7 +99,6 @@ void	ft_suppr_n_char_index(char *str, int index, int len)
 {
 	int i;
 
-	ft_printf("%d %d\n", index, len);
 	i = index;
 	while (str[i + len])
 	{
@@ -121,9 +120,24 @@ int		ft_inject_str_in_str(char **str, char *to_inject, int start_index)
 		return (1);
 	ft_memcpy(tmp, *str, start_index);
 	ft_memcpy(&tmp[start_index], to_inject, to_inject_len);
-	ft_memcpy(&tmp[start_index + to_inject_len], str[start_index],
+	ft_memcpy(&tmp[start_index + to_inject_len], &((*str)[start_index]),
 			receiver_len - start_index);
-	ft_printf("%s\n", tmp);
+	free(*str);
+	*str = tmp;
+	return (0);
+}
+
+/*
+** realloc str and inject to_inject at the index_to_inject at the place of 
+** the len character index starting from that index
+*/
+
+int		ft_substitute_str(char **str, char *to_inject,
+			int index_to_inject, int len)
+{
+	ft_suppr_n_char_index(*str, index_to_inject, len);
+	if (ft_inject_str_in_str(str, to_inject, index_to_inject))
+		return (1);
 	return (0);
 }
 
@@ -147,15 +161,14 @@ int		ft_substitute_by_env(char **str, int start, int len, t_shell *shell)
 		if (!(escaped_value = get_escaped_str(env_value)))
 			return (1);
 	}
-	ft_suppr_n_char_index(*str, start - 1, len + 1);
-	ft_printf("%s\n", *str);
-	if (ft_inject_str_in_str(str, escaped_value, start))
-		ft_printf("escaped_value: %s\n", escaped_value);
+	if (ft_substitute_str(str, escaped_value, start - 1, len + 1))
+		return (1);
+	shell->expand_diff = ft_strlen(escaped_value) - (len + 1);
 	return (0);
 }
 
 
-int		preprocess_expansions_str(char *str, t_shell *shell)
+int		preprocess_expansions_str(char **str, t_shell *shell)
 {
 	int		i;
 	char	parse_exp;
@@ -163,18 +176,20 @@ int		preprocess_expansions_str(char *str, t_shell *shell)
 
 	parse_exp = 0;
 	i = 0;
-	while (str[i])
+	while ((*str)[i])
 	{
-		if (parse_exp && ft_end_expansion(str[i]))
+		if (parse_exp && ft_end_expansion((*str)[i]))
 		{
-			if (ft_substitute_by_env(&str, exp_start, i - exp_start, shell))
+			if (ft_substitute_by_env(str, exp_start, i - exp_start, shell))
 				return (1);
-			if (str[i] != '$')
+
+			i += shell->expand_diff;
+			if ((*str)[i] != '$')
 				parse_exp = 0;
 			else
 				exp_start = i + 1;
 		}
-		else if (!parse_exp && str[i] == '$')
+		else if (!parse_exp && (*str)[i] == '$')
 		{
 			parse_exp = 1;
 			exp_start = i + 1;
@@ -183,8 +198,9 @@ int		preprocess_expansions_str(char *str, t_shell *shell)
 	}
 	if (parse_exp)
 	{
-		if (ft_substitute_by_env(&str, exp_start, i - exp_start, shell))
+		if (ft_substitute_by_env(str, exp_start, i - exp_start, shell))
 			return (1);
+		i += shell->expand_diff;
 	}
 	return (0);
 }
