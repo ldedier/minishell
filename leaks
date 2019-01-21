@@ -1,0 +1,19 @@
+Process:         minishell [87480]
+Path:            /Users/ldedier/Projects/minishell/minishell
+Load Address:    0x109c29000
+Identifier:      minishell
+Version:         ???
+Code Type:       X86-64
+Parent Process:  zsh [82080]
+
+Date/Time:       2019-01-21 14:41:53.748 +0100
+Launch Time:     2019-01-21 14:41:31.913 +0100
+OS Version:      Mac OS X 10.12.6 (16G29)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 9.2 (9C40b)
+----
+
+leaks Report Version:  2.0
+Process 87480: 191 nodes malloced for 19 KB
+Process 87480: 0 leaks for 0 total leaked bytes.

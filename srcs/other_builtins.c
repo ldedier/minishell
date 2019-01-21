@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 22:31:56 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 22:31:59 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/21 23:26:50 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		ms_echo(char **params)
 	return (1);
 }
 
-int		ms_env(char **params, t_shell *shell)
+int		process_ms_env(char **params, t_shell *shell)
 {
 	int i;
 
@@ -39,6 +39,44 @@ int		ms_env(char **params, t_shell *shell)
 		ft_printf("%s\n", shell->env->tab[i]);
 		i++;
 	}
+	return (1);
+}
+
+int		ms_env(char **params, t_shell *shell)
+{
+	int i;
+	int dump;
+	
+	dump = 0;
+	i = 1;
+	while (params[i])
+	{
+		if (ft_strcmp(params[i], "-i"))
+			dump = 1;
+		else if (ft_strcmp(params[i], "--"))
+		{
+			i++;
+			break;
+		}
+		else
+			break;
+		i++;	
+	while (params[i])
+	{
+		if (ft_strcmp(params[i], "-i"))
+			dump = 1;
+		else if (ft_strcmp(params[i], "--"))
+		{
+			i++;
+			break;
+		}
+		else
+			break;
+		i++;
+	}
+
+}
+
 	return (1);
 }
 

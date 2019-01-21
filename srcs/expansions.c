@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 23:42:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/21 00:12:35 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/21 14:49:56 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,19 +154,20 @@ int		ft_substitute_by_env(char **str, int start, int len, t_shell *shell)
 	if (!(env_value = get_env_value((char **)shell->env->tab, exp_str)))
 	{
 		if (!(escaped_value = ft_strnew(0)))
-			return (1);
+			return (ft_free_turn(exp_str, 1));
 	}
 	else
 	{
 		if (!(escaped_value = get_escaped_str(env_value)))
-			return (1);
+			return (ft_free_turn(exp_str, 1));
 	}
+	free(exp_str);
 	if (ft_substitute_str(str, escaped_value, start - 1, len + 1))
-		return (1);
+		return (ft_free_turn(escaped_value, 1));
 	shell->expand_diff = ft_strlen(escaped_value) - (len + 1);
+	free(escaped_value);
 	return (0);
 }
-
 
 int		preprocess_expansions_str(char **str, t_shell *shell)
 {

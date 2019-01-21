@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 22:28:34 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 22:28:50 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/21 23:11:32 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		ft_process_set_env_equal(char *entry, t_shell *shell)
 	}
 	if (add_to_env(shell, key, value))
 		return (-1);
-	return (0);
+	return (1);
 }
 
 int		ms_setenv(char **params, t_shell *shell)
@@ -78,5 +78,7 @@ int		ms_setenv(char **params, t_shell *shell)
 		if (add_to_env(shell, params[1], params[2]))
 			return (-1);
 	}
+	else
+		ft_dprintf(2, "%s: bad assignment\n", SH_NAME);
 	return (1);
 }
