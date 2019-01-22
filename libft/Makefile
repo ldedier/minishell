@@ -6,7 +6,7 @@
 #    By: ldedier <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/06 18:20:16 by ldedier           #+#    #+#              #
-#    Updated: 2019/01/14 16:04:10 by ldedier          ###   ########.fr        #
+#    Updated: 2019/01/22 18:52:43 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,8 @@ SRCS_NO_PREFIX = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c\
 	   ft_split_whitespace.c ft_strnrest.c ft_dy_tab_new.c ft_dy_tab_add_ptr.c\
 	   ft_dy_tab_del_ptr.c ft_dy_tab_suppr_index_ptr.c\
 	   ft_dy_tab_suppr_index.c ft_dy_tab_del.c ft_dy_tab_add_index_ptr.c\
-	   ft_dy_tab_realloc.c
+	   ft_dy_tab_realloc.c ft_dy_tab_cpy_ptr.c ft_dy_tab_cpy_str.c\
+	   ft_is_in_str.c
 
 SOURCES = $(addprefix $(SRCDIR)/, $(SRCS_NO_PREFIX))
 OBJECTS = $(addprefix $(OBJDIR)/, $(SRCS_NO_PREFIX:%.c=%.o))

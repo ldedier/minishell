@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/21 18:03:20 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/22 21:06:24 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,19 @@ typedef struct		s_env_entry
 typedef struct		s_shell
 {
 	char			running;
+	char			**params;
 	t_dy_tab		*env;
 	int				expand_diff;
 }					t_shell;
 
-int					ms_cd(char **params, t_shell *shell);
+int					ms_cd(t_shell *shell);
 int					ms_echo(char **params);
-int					ms_setenv(char **params, t_shell *shell);
-int					ms_unsetenv(char **params, t_shell *shell);
-int					ms_env(char **params, t_shell *shell);
-int					ms_exit(char **params, t_shell *shell);
+int					ms_setenv(t_shell *shell);
+int					ms_unsetenv(t_shell *shell);
+int					ms_env(t_shell *shell);
+int					ms_exit(t_shell *shell);
 
-int					execute_builtin(char **params, t_shell *shell);
+int					execute_builtin(t_shell *shell);
 
 char				*get_env_value(char **env, char *key);
 char				*get_env_entry(char **env, char *key);
@@ -63,13 +64,14 @@ t_env_entry			*ft_new_entry_from_str(char *str);
 char				**convert_entries_to_env(t_list *entries);
 int					ft_update_env(t_shell *shell);
 
-int					execute_command(char **params, t_shell *shell);
+int					execute_command(t_shell *shell);
 int					ft_init_shell(t_shell *shell, char **env);
 
 int					get_file_in_dir(char *filename, char *dirname);
 int					is_key_of_entry(char *entry, char *key);
-int					preprocess_expansions(char **params, t_shell *shell);
-int					add_to_env(t_shell *shell, char *key, char *value);
+int					preprocess_expansions(t_shell *shell);
+int					ft_process_set_env_equal(char *entry, t_dy_tab *env);
+int					add_to_env(t_dy_tab *env, char *key, char *value);
 int					preprocess_expansions_str(char **str, t_shell *shell);
 char				**split_params(char *str, t_param_rest *rest);
 #endif

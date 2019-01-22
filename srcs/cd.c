@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/12 22:18:50 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/20 17:15:51 by ldedier          ###   ########.fr       */
+/*   Created: 2019/01/22 20:30:39 by ldedier           #+#    #+#             */
+/*   Updated: 2019/01/23 00:18:06 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int		ft_update_old_pwd(char *path, t_cd_opt flag, t_shell *shell)
 	if (!getcwd(cwd, CWD_LEN))
 		return (1);
 	if (!(pwd_value = get_env_value((char **)shell->env->tab, "PWD")))
-		add_to_env(shell, "OLDPWD", cwd);
+		add_to_env(shell->env, "OLDPWD", cwd);
 	else
-		add_to_env(shell, "OLDPWD", pwd_value);
-	add_to_env(shell, "PWD", cwd);
+		add_to_env(shell->env, "OLDPWD", pwd_value);
+	add_to_env(shell->env, "PWD", cwd);
 	ft_printf("%s\n", cwd);
 	return (0);
 }
@@ -59,40 +59,39 @@ int		ft_process_ms_cd(char *path, t_cd_opt flag, t_shell *shell)
 	return (1);
 }
 
-int		ms_cd(char **params, t_shell *shell)
+int		ms_cd(t_shell *shell)
 {
 	char	*home_str;
 	int		i;
 	int 	flag;
 	char	*str;
-	char	**pwd_split;
 
 	flag = e_cd_opt_logic;
 	i = 1;
-	while (params[i])
+	while (shell->params[i])
 	{
-		if (!ft_strcmp(params[i], "-P"))
+		if (!ft_strcmp(shell->params[i], "-P"))
 			flag = e_cd_opt_physic;
-		else if (!ft_strcmp(params[i], "-L"))
+		else if (!ft_strcmp(shell->params[i], "-L"))
 			flag = e_cd_opt_logic;
 		else
 		{
-			if (!ft_strcmp("-", params[i]))
+			if (!ft_strcmp("-", shell->params[i]))
 			{
 				if ((str = get_env_value((char **)shell->env->tab, "OLDPWD")))
 				{
 					ft_process_ms_cd(str, flag, shell);
-					if (!(pwd_split = ft_strsplit("pwd", ' ')))
+					if (!(shell->params = ft_strsplit("pwd", ' ')))
 						return (1);
-					execute_command(pwd_split, shell);
-					ft_free_split(pwd_split);
+					execute_command(shell);
+				//	ft_free_split(shell->params);
 					return (1);
 				}
 				else
 					ft_printf("%s: cd: OLDPWD not set\n", SH_NAME);
 			}
 			else
-				return (ft_process_ms_cd(params[i], flag, shell));
+				return (ft_process_ms_cd(shell->params[i], flag, shell));
 		}
 		i++;
 	}

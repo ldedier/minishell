@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dy_tab_new.c                                    :+:      :+:    :+:   */
+/*   ft_is_in_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/14 14:08:58 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/22 18:37:03 by ldedier          ###   ########.fr       */
+/*   Created: 2019/01/22 16:49:02 by ldedier           #+#    #+#             */
+/*   Updated: 2019/01/22 16:50:44 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_dy_tab	*ft_dy_tab_new(size_t max_size)
+int			ft_is_in_str(const char *str, char c)
 {
-	t_dy_tab *res;
+	int i;
 
-	if (!(res = (t_dy_tab *)malloc(sizeof(t_dy_tab))))
-		return (NULL);
-	res->current_size = 0;
-	res->max_size = max_size;
-	if (!(res->tab = (void **)malloc(max_size * (sizeof(void *) + 1))))
+	i = 0;
+	while (str[i])
 	{
-		free(res);
-		return (NULL);
+		if (str[i++] == c)
+			return (1);
 	}
-	return (res);
+	return (0);
 }

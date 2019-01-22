@@ -6,12 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:37:25 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/21 20:54:03 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/22 23:34:17 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
 void __attribute__((destructor)) end();
 
 void    end(void)
@@ -19,6 +20,7 @@ void    end(void)
 	ft_printf("destructor loop\n");
 	while(1);
 }
+*/
 
 void	ft_print_params(char **params)
 {
@@ -32,29 +34,56 @@ void	ft_print_params(char **params)
 	}
 }
 
+int		preprocess_expansions(t_shell *shell)
+{
+	int		i;
+	char	*subst;
+	char	*str;
+
+	i = 0;
+	while (shell->params[i])
+	{
+		if (!ft_strcmp(shell->params[i], "~"))
+		{
+			if (!(str = get_env_value((char **)shell->env->tab, "HOME")))
+				subst = ft_strdup("");
+			else
+				subst = ft_strdup(str);
+			if (!subst)
+				return (-1);
+			else
+			{
+				free(shell->params[i]);
+				shell->params[i] = subst;
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
 int		await_command(t_shell *shell)
 {
 	char			*command;
-	char			**params;
 	char			processed_input;
 
 	if (get_next_line(0, &command) == -1)
 		return (1);
 	preprocess_expansions_str(&command, shell);
-	if (!(params = ft_split_whitespace(command)))
+	if (!(shell->params = ft_split_whitespace(command)))
 		return (1);
 	free(command);
-	if (ft_splitlen(params) == 0)
+	if (ft_splitlen(shell->params) == 0)
 	{
-		ft_free_split(params);
+		ft_free_split(shell->params);
 		return (0);
 	}
 	else
 	{
-	//	preprocess_expansions(params, shell);
-		execute_command(params, shell);
+		preprocess_expansions(shell);
+		execute_command(shell);
 	}
-	ft_free_split(params);
+	ft_free_split(shell->params);
 	return (0);
 }
 

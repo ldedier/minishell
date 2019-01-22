@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 23:42:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/21 14:49:56 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/23 00:06:23 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		get_env_expansion_value(char *param, t_dy_tab *env, char **env_value)
 
 int		ft_end_expansion(char c)
 {
-	return (ft_isseparator(c) || c == '$');
+	return (ft_isseparator(c) || c == '$' || c == '~');
 }
 
 int		should_escape_char(char c)

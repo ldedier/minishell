@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 22:28:34 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/21 23:11:32 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/22 21:04:52 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,28 @@ int		get_key_len(char *entry)
 	return (-1);
 }
 
-int		add_to_env(t_shell *shell, char *key, char *value)
+int		add_to_env(t_dy_tab *env, char *key, char *value)
 {
 	char 	*entry;
 	int		i;
 	i = 0;
-	while (shell->env->tab[i])
+	while (env->tab[i])
 	{
-		if (is_key_of_entry(shell->env->tab[i], key))
+		if (is_key_of_entry(env->tab[i], key))
 		{
-			ft_dy_tab_suppr_index(shell->env, i);
+			ft_dy_tab_suppr_index(env, i);
 			break ;
 		}
 		i++;
 	}
 	if (!(entry = ft_strjoin_3(key, "=", value)))
 		return (1);
-	if (ft_dy_tab_add_ptr(shell->env, entry))
+	if (ft_dy_tab_add_ptr(env, entry))
 		return (1);
 	return (0);
 }
 
-int		ft_process_set_env_equal(char *entry, t_shell *shell)
+int		ft_process_set_env_equal(char *entry, t_dy_tab *env)
 {
 	char	*value;
 	char	*key;
@@ -62,20 +62,20 @@ int		ft_process_set_env_equal(char *entry, t_shell *shell)
 		free(key);
 		return (-1);
 	}
-	if (add_to_env(shell, key, value))
+	if (add_to_env(env, key, value))
 		return (-1);
 	return (1);
 }
 
-int		ms_setenv(char **params, t_shell *shell)
+int		ms_setenv(t_shell *shell)
 {
-	if (ft_splitlen(params) == 1)
+	if (ft_splitlen(shell->params) == 1)
 		return (1);
-	else if (ft_splitlen(params) == 2)
-		return (ft_process_set_env_equal(params[1], shell));
-	else if (ft_splitlen(params) == 3)
+	else if (ft_splitlen(shell->params) == 2)
+		return (ft_process_set_env_equal(shell->params[1], shell->env));
+	else if (ft_splitlen(shell->params) == 3)
 	{
-		if (add_to_env(shell, params[1], params[2]))
+		if (add_to_env(shell->env, shell->params[1], shell->params[2]))
 			return (-1);
 	}
 	else
