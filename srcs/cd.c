@@ -6,35 +6,71 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 20:30:39 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/23 00:18:06 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/23 16:28:07 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_update_old_pwd(char *path, t_cd_opt flag, t_shell *shell)
+
+char	*ft_get_full_path(char *path)
+{
+	char		cwd[CWD_LEN];
+	char		dir[CWD_LEN];
+	char		*str;
+
+	if (!getcwd(cwd, CWD_LEN))
+		return (NULL);
+	if (chdir(path))
+		return (NULL);
+	if (!getcwd(dir, CWD_LEN))
+		return (NULL);
+	if (chdir(cwd))
+		return (NULL);
+	if (!(str = ft_strdup(dir)))
+		return (NULL);
+	return (str);
+}
+
+int		ft_update_old_pwd(char *old_pwd, char *path, t_cd_opt flag,
+			t_shell *shell)
 {
 	struct stat	st;
 	char		cwd[CWD_LEN];
 	char		*pwd_value;
+	char		*final_pwd;
 
 	if (!getcwd(cwd, CWD_LEN))
-		return (1);
+		return (-1);
+	if (flag == e_cd_opt_physic)
+		final_pwd = ft_strdup(cwd);
+	else
+	{
+		if (path[0] == '/')
+			final_pwd = ft_strdup(path);
+		else
+			final_pwd = ft_strjoin_3(old_pwd, "/", path);
+	}
+	if (!final_pwd)
+		return (-1);
 	if (!(pwd_value = get_env_value((char **)shell->env->tab, "PWD")))
-		add_to_env(shell->env, "OLDPWD", cwd);
+		add_to_env(shell->env, "OLDPWD", old_pwd);
 	else
 		add_to_env(shell->env, "OLDPWD", pwd_value);
-	add_to_env(shell->env, "PWD", cwd);
-	ft_printf("%s\n", cwd);
+	add_to_env(shell->env, "PWD", final_pwd);
+	free(final_pwd);
 	return (0);
 }
 
 int		ft_process_ms_cd(char *path, t_cd_opt flag, t_shell *shell)
 {
 	struct stat st;
+	char		*pwd;
+	char		old_pwd[CWD_LEN];
 
-	lstat(path, &st);
-	ft_printf("%s\n", path);
+	if (!getcwd(old_pwd, CWD_LEN))
+		return (-1);
+	stat(path, &st);
 	if (chdir(path) != 0)
 	{
 		if (access(path, F_OK))
@@ -54,8 +90,8 @@ int		ft_process_ms_cd(char *path, t_cd_opt flag, t_shell *shell)
 		}
 		return (1);
 	}
-	else
-		ft_update_old_pwd(path, flag, shell);
+	else if (ft_update_old_pwd(old_pwd, path, flag, shell) == -1)
+		return (-1);;
 	return (1);
 }
 

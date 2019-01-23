@@ -6,21 +6,19 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:37:25 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/22 23:34:17 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/23 19:50:07 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
 void __attribute__((destructor)) end();
 
 void    end(void)
 {
-	ft_printf("destructor loop\n");
-	while(1);
+//	ft_printf("destructor loop\n");
+//	while(1);
 }
-*/
 
 void	ft_print_params(char **params)
 {
@@ -46,7 +44,7 @@ int		preprocess_expansions(t_shell *shell)
 		if (!ft_strcmp(shell->params[i], "~"))
 		{
 			if (!(str = get_env_value((char **)shell->env->tab, "HOME")))
-				subst = ft_strdup("");
+				subst = ft_strdup(LOCAL_HOME);
 			else
 				subst = ft_strdup(str);
 			if (!subst)
@@ -87,19 +85,27 @@ int		await_command(t_shell *shell)
 	return (0);
 }
 
+void	handle_sigint(int signal)
+{
+	(void)signal;
+	ft_printf(CYAN BOLD "\n$MiShell> "EOC);
+}
+
 int main(int argc, char **argv, char **env)
 {
 	t_shell		shell;
 
 	(void)argc;
 	(void)argv;
-
-	ft_init_shell(&shell, env);
+	signal(SIGINT, handle_sigint); 
+	if (ft_init_shell(&shell, env))
+		return (1);
 	while (shell.running)
 	{
 		ft_printf(CYAN BOLD "$MiShell> "EOC);
 		if (await_command(&shell))
 			return (1);
 	}
+	free_all(&shell);
 	return (0);
 }

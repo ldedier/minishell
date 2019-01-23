@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 16:00:04 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 16:04:00 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/23 17:39:50 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int		ft_dy_tab_realloc(t_dy_tab *d_tab)
 {
 	void **tmp;
 
-	if (!(tmp = (void **)malloc(sizeof(void *) * ((d_tab->max_size * 2) + 1))))
+	if (!(tmp = (void **)ft_memalloc(sizeof(void *) *
+			((d_tab->max_size * 2) + 1))))
 		return (1);
 	ft_memcpy(tmp, d_tab->tab, sizeof(void *) * d_tab->current_size);
 	free(d_tab->tab);

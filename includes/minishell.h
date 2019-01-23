@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/22 21:06:24 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/23 16:46:17 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define CWD_LEN	2048
 # define SH_NAME	"minishell"
+# define LOCAL_HOME	"/Users/ldedier"
 
 typedef enum		e_cd_opt
 {
@@ -74,4 +75,5 @@ int					ft_process_set_env_equal(char *entry, t_dy_tab *env);
 int					add_to_env(t_dy_tab *env, char *key, char *value);
 int					preprocess_expansions_str(char **str, t_shell *shell);
 char				**split_params(char *str, t_param_rest *rest);
+void				free_all(t_shell *shell);
 #endif

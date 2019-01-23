@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/22 18:54:51 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/23 16:33:42 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ long long int		ft_atoll(const char *str);
 int					ft_round(double value);
 t_dy_tab			*ft_dy_tab_new(size_t max_size);
 int					ft_dy_tab_add_ptr(t_dy_tab *d_tab, void *to_add);
+int					ft_dy_tab_add_str(t_dy_tab *d_tab, void *to_add);
 int					ft_dy_tab_add_index_ptr(t_dy_tab *d_tab, void *to_add,
 						size_t index);
 void				ft_dy_tab_suppr_index(t_dy_tab *d_tab, size_t index);

@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mdr.c                                              :+:      :+:    :+:   */
+/*   ft_dy_tab_add_str.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/12 16:05:00 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/23 19:17:35 by ldedier          ###   ########.fr       */
+/*   Created: 2019/01/23 16:31:13 by ldedier           #+#    #+#             */
+/*   Updated: 2019/01/23 16:33:05 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-
-int main(int argc, char **argv)
+int     ft_dy_tab_add_str(t_dy_tab *d_tab, void *to_add)
 {
-	(void)argc;
-	(void)argv;
-
-	write(1, "hehehe\n", 7);
-	while(1);
+	if (d_tab->current_size >= d_tab->max_size)
+	{
+		if (ft_dy_tab_realloc(d_tab))
+			return (1);
+	}
+	if (!(d_tab->tab[d_tab->current_size] = ft_strdup((char *)to_add)))
+		return (1);
+	d_tab->current_size++;
+	d_tab->tab[d_tab->current_size] = 0;
 	return (0);
 }

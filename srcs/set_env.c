@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 22:28:34 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/22 21:04:52 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/23 17:30:24 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ int		get_key_len(char *entry)
 int		add_to_env(t_dy_tab *env, char *key, char *value)
 {
 	char 	*entry;
-	int		i;
+	size_t	i;
+
 	i = 0;
-	while (env->tab[i])
+	while (i < env->current_size)
 	{
 		if (is_key_of_entry(env->tab[i], key))
 		{
@@ -63,7 +64,13 @@ int		ft_process_set_env_equal(char *entry, t_dy_tab *env)
 		return (-1);
 	}
 	if (add_to_env(env, key, value))
+	{
+		free(key);
+		free(value);
 		return (-1);
+	}
+	free(key);
+	free(value);
 	return (1);
 }
 
