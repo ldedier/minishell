@@ -6,42 +6,74 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/23 16:42:23 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/24 19:31:58 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		process_execute(char *path, t_shell *shell)
-{
-	pid_t parent;
+static pid_t g_parent = 1;
 
-//	ft_printf("execution of a prog\n");
-	parent = fork();
-	if (parent > 0)
-		wait(NULL);
-	else
-		execve(path, shell->params, (char **)shell->env->tab);
-	return (0);
+void	handle_sigint(int signal)
+{
+	if (g_parent > 0)
+	{
+		kill(g_parent, SIGINT);
+		ft_printf(CYAN BOLD "\n$MiShell> "EOC);
+	}
 }
 
-int		process_execute_command_no_path(char *full_path, t_shell *shell)
+int		check_execute(char *full_path, t_shell *shell)
 {
-	struct stat st;
+	int i;
 
+	struct stat st;
+	ft_printf("%s\n", full_path);
+	i = access(full_path, F_OK);
+	while (1) ;
+	ft_printf("STUCK IN WHILE 1\n");
 	if (access(full_path, F_OK))
+	{
 		ft_printf("minishell: command not found: %s\n", shell->params[0]);
+		return (1);
+	}
 	else
 	{
 		if (stat(full_path, &st) == -1)
 			return (-1);
 		if (S_ISDIR(st.st_mode))
+		{
 			ft_printf("minishell: command not found: %s\n", shell->params[0]);
+			return (1);
+		}
 		else if (access(full_path, X_OK))
+		{
 			ft_printf("minishell: permission denied: %s\n", shell->params[0]);
-		else
-			return (process_execute(full_path, shell));
+			return (1);
+		}
 	}
+	return (0);
+}
+
+int		process_execute(char *path, t_shell *shell)
+{
+	int	stat_loc;
+
+	if (check_execute(path, shell)) //LEAKS
+		return (1);
+	if ((g_parent = fork()) == -1)
+		return (1);
+	if (g_parent == 0)
+	{
+		if (execve(path, shell->params, (char **)shell->env->tab) == -1)
+			exit(1);
+	}
+	else
+	{
+		wait(&stat_loc);
+		shell->should_display = !(WIFSIGNALED(stat_loc));
+	}
+	ft_printf("OUAI\n");
 	return (0);
 }
 
@@ -51,14 +83,14 @@ int		execute_command_no_path(t_shell *shell)
 	char	*full_path;
 
 	if (shell->params[0][0] == '/')
-		return (process_execute_command_no_path(shell->params[0], shell));
+		return (process_execute(shell->params[0], shell));
 	else
 	{
-		if (getcwd(cwd, sizeof(cwd)) == NULL)
+		if (getcwd(cwd, CWD_LEN) == NULL)
 			return (1);
 		if (!(full_path = ft_strjoin_3(cwd, "/", shell->params[0])))
 			return (1);
-		process_execute_command_no_path(full_path, shell);
+		process_execute(full_path, shell);
 		free(full_path);
 		return (1);
 	}

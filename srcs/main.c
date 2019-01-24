@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:37:25 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/23 19:50:07 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/24 18:21:26 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void __attribute__((destructor)) end();
 
 void    end(void)
 {
-//	ft_printf("destructor loop\n");
-//	while(1);
+	//	ft_printf("destructor loop\n");
+	//	while(1);
 }
 
 void	ft_print_params(char **params)
@@ -60,17 +60,11 @@ int		preprocess_expansions(t_shell *shell)
 	return (0);
 }
 
-int		await_command(t_shell *shell)
+int		process_command(char **command, t_shell *shell)
 {
-	char			*command;
-	char			processed_input;
-
-	if (get_next_line(0, &command) == -1)
+	preprocess_expansions_str(command, shell);
+	if (!(shell->params = ft_split_whitespace(*command)))
 		return (1);
-	preprocess_expansions_str(&command, shell);
-	if (!(shell->params = ft_split_whitespace(command)))
-		return (1);
-	free(command);
 	if (ft_splitlen(shell->params) == 0)
 	{
 		ft_free_split(shell->params);
@@ -85,10 +79,29 @@ int		await_command(t_shell *shell)
 	return (0);
 }
 
-void	handle_sigint(int signal)
+int		await_command(t_shell *shell)
 {
-	(void)signal;
-	ft_printf(CYAN BOLD "\n$MiShell> "EOC);
+	char			*command;
+	char			processed_input;
+	char			**command_split;
+	int				i;
+
+	if (get_next_line(0, &command) == -1)
+		return (1);
+	if (!(command_split = ft_strsplit(command, ';')))
+		return (ft_free_turn(command, 1));
+	else
+	{
+		free(command);
+		i = 0;
+		while (command_split[i] && shell->running)
+		{
+			process_command(&(command_split[i]), shell);
+			i++;
+		}
+		ft_free_split(command_split);
+	}
+	return (0);
 }
 
 int main(int argc, char **argv, char **env)
@@ -102,7 +115,9 @@ int main(int argc, char **argv, char **env)
 		return (1);
 	while (shell.running)
 	{
-		ft_printf(CYAN BOLD "$MiShell> "EOC);
+		if (shell.should_display)
+			ft_printf(CYAN BOLD "$MiShell> "EOC);
+		shell.should_display = 1;
 		if (await_command(&shell))
 			return (1);
 	}
