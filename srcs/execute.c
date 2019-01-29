@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/24 19:31:58 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/29 21:08:42 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,8 @@ void	handle_sigint(int signal)
 
 int		check_execute(char *full_path, t_shell *shell)
 {
-	int i;
+	struct stat	st;
 
-	struct stat st;
-	ft_printf("%s\n", full_path);
-	i = access(full_path, F_OK);
-	while (1) ;
-	ft_printf("STUCK IN WHILE 1\n");
 	if (access(full_path, F_OK))
 	{
 		ft_printf("minishell: command not found: %s\n", shell->params[0]);
@@ -59,7 +54,7 @@ int		process_execute(char *path, t_shell *shell)
 {
 	int	stat_loc;
 
-	if (check_execute(path, shell)) //LEAKS
+	if (check_execute(path, shell))
 		return (1);
 	if ((g_parent = fork()) == -1)
 		return (1);
@@ -73,7 +68,6 @@ int		process_execute(char *path, t_shell *shell)
 		wait(&stat_loc);
 		shell->should_display = !(WIFSIGNALED(stat_loc));
 	}
-	ft_printf("OUAI\n");
 	return (0);
 }
 

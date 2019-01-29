@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:29:00 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/12 22:32:16 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/29 19:04:02 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int		get_file_in_dir(char *filename, char *dirname)
 	while ((entry = readdir(dir)) != NULL)
 	{
 		if (!ft_strcmp(entry->d_name, filename))
+		{
+			closedir(dir);
 			return (1);
+		}
 	}
 	closedir(dir);
 	return (0);
