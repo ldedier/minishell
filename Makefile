@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/12 13:39:53 by ldedier           #+#    #+#              #
-#    Updated: 2019/01/30 22:26:55 by ldedier          ###   ########.fr        #
+#    Updated: 2019/01/30 22:50:41 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ $(LIBFT):
 	@make -C $(LIBFTDIR) opti
 
 $(BINDIR)/$(NAME): $(OBJECTS) $(LIBFT)
-	@$(CC) -o $@ $^ $(CFLAGS) $(LFLAGS)
+	@$(CC) -o $@ $^ $(CFLAGS) $(LFLAGS) 
 	@echo "$(OK_COLOR)$(NAME) linked with success !$(EOC)"
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.c $(INCLUDES)

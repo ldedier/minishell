@@ -6,19 +6,11 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 02:34:27 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 05:50:16 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/30 22:41:08 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void __attribute__((destructor)) end();
-
-void    end(void)
-{
-		ft_printf("destructor loop\n");
-		while(1);
-}
 
 void	ft_print_params(char **params)
 {
