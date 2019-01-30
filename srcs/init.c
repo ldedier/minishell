@@ -6,12 +6,11 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:27:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/24 15:52:58 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/29 23:48:59 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int		ft_update_shell_lvl(t_shell *shell)
 {

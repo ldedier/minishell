@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:22:46 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/23 17:30:35 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/30 05:32:31 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char		*get_env_value(char **env, char *str)
 
 char		*get_env_entry(char **env, char *str)
 {
-	int len;
 	int i;
 
 	i = 0;
@@ -55,4 +54,17 @@ char		*get_env_entry(char **env, char *str)
 		i++;
 	}
 	return (NULL);
+}
+
+int			process_ms_env(t_dy_tab *env)
+{
+	size_t i;
+
+	i = 0;
+	while (i < env->current_size)
+	{
+		ft_printf("%s\n", env->tab[i]);
+		i++;
+	}
+	return (1);
 }

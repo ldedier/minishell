@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/12 13:39:53 by ldedier           #+#    #+#              #
-#    Updated: 2019/01/23 16:51:11 by ldedier          ###   ########.fr        #
+#    Updated: 2019/01/30 03:33:21 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ EOC = \033[0m
 
 SRCS_NO_PREFIX		=	main.c builtins.c env.c execute.c init.c tools.c\
 						set_env.c other_builtins.c expansions.c cd.c\
-						free_all.c print_env.c
+						free_all.c print_env.c cd_tools.c expansions_tools.c\
+						execute_tools.c
 
 INCLUDES_NO_PREFIX	= minishell.h
 
@@ -42,8 +43,7 @@ INCLUDES = $(addprefix $(INCLUDESDIR)/, $(INCLUDES_NO_PREFIX))
 
 INC = -I $(INCLUDESDIR) -I $(LIBFTDIR)/$(LIBFT_INCLUDEDIR)\
 
-CFLAGS = -DPATH=$(PWD) -Wall -Wextra -Werror $(INC) \
-		 -Wno-error=unused-variable -Wno-error=unused-parameter
+CFLAGS = -DPATH=$(PWD) -Wall -Wextra -Werror $(INC)
 LFLAGS = -L $(LIBFTDIR) -lft
 
 ifeq ($(DEBUG), 1)

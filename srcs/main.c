@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/12 13:37:25 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/24 18:21:26 by ldedier          ###   ########.fr       */
+/*   Created: 2019/01/30 02:34:27 by ldedier           #+#    #+#             */
+/*   Updated: 2019/01/30 05:50:16 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void __attribute__((destructor)) end();
 
 void    end(void)
 {
-	//	ft_printf("destructor loop\n");
-	//	while(1);
+		ft_printf("destructor loop\n");
+		while(1);
 }
 
 void	ft_print_params(char **params)
@@ -82,7 +82,6 @@ int		process_command(char **command, t_shell *shell)
 int		await_command(t_shell *shell)
 {
 	char			*command;
-	char			processed_input;
 	char			**command_split;
 	int				i;
 
@@ -104,22 +103,29 @@ int		await_command(t_shell *shell)
 	return (0);
 }
 
-int main(int argc, char **argv, char **env)
+int		main(int argc, char **argv, char **env)
 {
 	t_shell		shell;
 
 	(void)argc;
 	(void)argv;
-	signal(SIGINT, handle_sigint); 
+	signal(SIGINT, handle_sigint);
 	if (ft_init_shell(&shell, env))
+	{
+		ft_dprintf(2, "internal malloc error\n");
 		return (1);
+	}
 	while (shell.running)
 	{
 		if (shell.should_display)
-			ft_printf(CYAN BOLD "$MiShell> "EOC);
+			ft_printf(CYAN"%s$MiShell> "EOC, BOLD);
 		shell.should_display = 1;
 		if (await_command(&shell))
+		{
+			ft_dprintf(2, "internal malloc error\n");
+			free_all(&shell);
 			return (1);
+		}
 	}
 	free_all(&shell);
 	return (0);

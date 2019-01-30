@@ -6,13 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 16:31:13 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/23 16:33:05 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/29 23:41:40 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int     ft_dy_tab_add_str(t_dy_tab *d_tab, void *to_add)
+int		ft_dy_tab_add_str(t_dy_tab *d_tab, void *to_add)
 {
 	if (d_tab->current_size >= d_tab->max_size)
 	{

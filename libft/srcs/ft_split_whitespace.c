@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 18:39:18 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/21 18:06:18 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/30 03:02:08 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int			ft_fill_split(char **res, char const *s)
 		}
 		else if (ft_isseparator(s[i]) && parseword)
 		{
-			if (!(res[word_count++] = strndup(&s[start], i - start)))
+			if (!(res[word_count++] = ft_strndup(&s[start], i - start)))
 				return (ft_free_split_n(res, word_count));
 			parseword = 0;
 		}
 	}
-	if (parseword && (!(res[word_count++] = strndup(&s[start], i - start))))
+	if (parseword && (!(res[word_count++] = ft_strndup(&s[start], i - start))))
 		return (ft_free_split_n(res, word_count));
 	return (0);
 }

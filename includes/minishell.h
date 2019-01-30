@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/24 19:27:00 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/30 05:48:46 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ typedef struct		s_env_entry
 	char			*value;
 }					t_env_entry;
 
+typedef struct		s_expansion_parser
+{
+	char			parse_exp;
+	int				exp_start;
+}					t_expansion_parser;
+
 typedef struct		s_shell
 {
 	char			running;
@@ -68,6 +74,8 @@ char				**convert_entries_to_env(t_list *entries);
 int					ft_update_env(t_shell *shell);
 
 int					execute_command(t_shell *shell);
+int					execute_command_2(t_shell *shell, char *path_str);
+int					execute_command_no_builtin(t_shell *shell);
 int					ft_init_shell(t_shell *shell, char **env);
 
 int					get_file_in_dir(char *filename, char *dirname);
@@ -79,4 +87,12 @@ int					preprocess_expansions_str(char **str, t_shell *shell);
 char				**split_params(char *str, t_param_rest *rest);
 void				free_all(t_shell *shell);
 void				handle_sigint(int signal);
+int					ft_update_old_pwd(char *old_pwd, char *path, t_cd_opt flag,
+						t_shell *shell);
+int					process_ms_env(t_dy_tab *env);
+char				*get_escaped_str(char *str);
+int					ft_end_expansion(char c);
+int					check_execute(char *full_path, t_shell *shell);
+int					execute_command_path(t_shell *shell, char *path_str);
+int					execute_command_no_path(t_shell *shell);
 #endif

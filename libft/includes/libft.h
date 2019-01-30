@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/23 16:33:42 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/30 03:43:11 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # include "ft_printf.h"
 # include "get_next_line.h"
+
 # define MAX_INT 	2147483647
 
 typedef struct		s_list
@@ -178,4 +179,6 @@ void				ft_dy_tab_suppr_index_ptr(t_dy_tab *d_tab, size_t index);
 int					ft_dy_tab_realloc(t_dy_tab *d_tab);
 t_dy_tab			*ft_dy_tab_cpy_ptr(t_dy_tab *d_tab);
 t_dy_tab			*ft_dy_tab_cpy_str(t_dy_tab *d_tab);
+int					ft_substitute_str(char **str, char *to_inject,
+						int index_to_inject, int len);
 #endif
