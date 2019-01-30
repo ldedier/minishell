@@ -6,58 +6,30 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 00:01:34 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 06:28:30 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/30 22:27:45 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_get_previous_directory(char *current_directory)
-{
-	int i;
-	int index;
-
-	index = -1;
-	i = 0;
-	while (current_directory[i])
-	{
-		if (current_directory[i] == '/')
-			index = i;
-		i++;
-	}
-	if (index == 0 && i == 1)
-		return (ft_strdup("/"));
-	else
-		return (ft_strndup(current_directory, ft_max(1, index)));
-}
-
-int		ft_end_by_char(char *str, char c)
+int		end_with_char(char *str, char c)
 {
 	int i;
 
 	i = 0;
 	while (str[i])
 		i++;
-	if (--i == -1 || str[i] != c)
-		return (0);
-	return (1);
+	if (--i >= 0 && str[i] == c)
+		return (1);
+	return (0);
 }
 
 char	*get_path_from_request(char *old_pwd, char *path)
 {
 	if (path[0] == '/')
-		return (ft_strdup(path));
-	else if (!ft_strcmp("..", path))
-		return (ft_get_previous_directory(old_pwd));
-	else if (!ft_strcmp(".", path))
-		return (ft_strdup(old_pwd));
+		return (get_sanitized_path_from_old("/", &(path[1])));
 	else
-	{
-		if (!ft_end_by_char(old_pwd, '/'))
-			return (ft_strjoin_3(old_pwd, "/", path));
-		else
-			return (ft_strjoin(old_pwd, path));
-	}
+		return (get_sanitized_path_from_old(old_pwd, path));
 }
 
 int		ft_update_old_pwd(char *old_pwd, char *path, t_cd_opt flag,

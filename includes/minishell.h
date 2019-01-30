@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 05:48:46 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/30 22:27:44 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,6 @@ int					ft_end_expansion(char c);
 int					check_execute(char *full_path, t_shell *shell);
 int					execute_command_path(t_shell *shell, char *path_str);
 int					execute_command_no_path(t_shell *shell);
+char				*get_sanitized_path_from_old(char *old_pwd, char *path);
+int					end_with_char(char *str, char c);
 #endif
