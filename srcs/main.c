@@ -6,40 +6,23 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 02:34:27 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 22:41:08 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/13 23:55:05 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_params(char **params)
-{
-	int i;
-
-	i = 0;
-	while (params[i])
-	{
-		ft_printf("%d: %s\n", i, params[i]);
-		i++;
-	}
-}
-
 int		preprocess_expansions(t_shell *shell)
 {
 	int		i;
 	char	*subst;
-	char	*str;
 
 	i = 0;
 	while (shell->params[i])
 	{
 		if (!ft_strcmp(shell->params[i], "~"))
 		{
-			if (!(str = get_env_value((char **)shell->env->tab, "HOME")))
-				subst = ft_strdup(LOCAL_HOME);
-			else
-				subst = ft_strdup(str);
-			if (!subst)
+			if (!(subst = get_home_dup(shell)))
 				return (-1);
 			else
 			{
@@ -47,6 +30,10 @@ int		preprocess_expansions(t_shell *shell)
 				shell->params[i] = subst;
 			}
 		}
+		else if ((!ft_strncmp(shell->params[i], "~/", 2) ||
+			!ft_strncmp(shell->params[i], "~:", 2))
+				&& (process_subst_home(shell, i)))
+			return (-1);
 		i++;
 	}
 	return (0);
@@ -87,7 +74,11 @@ int		await_command(t_shell *shell)
 		i = 0;
 		while (command_split[i] && shell->running)
 		{
-			process_command(&(command_split[i]), shell);
+			if (process_command(&(command_split[i]), shell))
+			{
+				ft_free_split(command_split);
+				return (1);
+			}
 			i++;
 		}
 		ft_free_split(command_split);
@@ -110,7 +101,7 @@ int		main(int argc, char **argv, char **env)
 	while (shell.running)
 	{
 		if (shell.should_display)
-			ft_printf(CYAN"%s$MiShell> "EOC, BOLD);
+			ft_printf(CYAN"%s$minishell> "EOC, BOLD);
 		shell.should_display = 1;
 		if (await_command(&shell))
 		{

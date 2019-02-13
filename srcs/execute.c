@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 22:40:02 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/01/30 23:00:59 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_sigint(int signal)
 	if (g_parent > 0)
 	{
 		kill(g_parent, SIGINT);
-		ft_printf(CYAN"\n%s$MiShell> "EOC, BOLD);
+		ft_printf(CYAN"\n%s$minishell> "EOC, BOLD);
 	}
 }
 

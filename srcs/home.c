@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansions.c                                       :+:      :+:    :+:   */
+/*   home.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/14 23:42:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/10 16:56:00 by ldedier          ###   ########.fr       */
+/*   Created: 2019/02/13 23:52:50 by ldedier           #+#    #+#             */
+/*   Updated: 2019/02/13 23:54:13 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		describe_entry(char *param, char *entry, char **env_value)
+char	*get_home_dup(t_shell *shell)
 {
-	int i;
+	char *str;
 
-	if (param[0] != '$')
-		return (0);
-	i = 1;
-	while (param[i] && entry[i - 1] && param[i] == entry[i - 1] &&
-			entry[i - 1] != '=')
-		i++;
-	if (!param[i] && entry[i - 1] == '=')
-	{
-		*env_value = ft_strnrest(entry, i);
-		return (1);
-	}
-	return (0);
+	if (!(str = get_env_value((char **)shell->env->tab, "HOME")))
+		return (ft_strdup(LOCAL_HOME));
+	else
+		return (ft_strdup(str));
 }
 
-int		ft_end_expansion(char c)
+int		process_subst_home(t_shell *shell, int i)
 {
-	return (ft_isseparator(c) || c == '$' || c == '~');
+	char *subst;
+
+	if (!(subst = get_home_dup(shell)))
+		return (1);
+	else if (ft_substitute_str(&shell->params[i], subst, 0, 1))
+	{
+		free(subst);
+		return (1);
+	}
+	free(subst);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 22:27:44 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/13 23:54:06 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include <stdlib.h>
-# include <stdio.h>
 # include "libft.h"
 # include <dirent.h>
 # include <sys/stat.h>
@@ -30,12 +29,6 @@ typedef enum		e_cd_opt
 	e_cd_opt_logic,
 	e_cd_opt_physic,
 }					t_cd_opt;
-
-typedef struct		s_param_rest
-{
-	char			*value;
-	char			glue[2];
-}					t_param_rest;
 
 typedef struct		s_env_entry
 {
@@ -84,7 +77,6 @@ int					preprocess_expansions(t_shell *shell);
 int					ft_process_set_env_equal(char *entry, t_dy_tab *env);
 int					add_to_env(t_dy_tab *env, char *key, char *value);
 int					preprocess_expansions_str(char **str, t_shell *shell);
-char				**split_params(char *str, t_param_rest *rest);
 void				free_all(t_shell *shell);
 void				handle_sigint(int signal);
 int					ft_update_old_pwd(char *old_pwd, char *path, t_cd_opt flag,
@@ -97,4 +89,6 @@ int					execute_command_path(t_shell *shell, char *path_str);
 int					execute_command_no_path(t_shell *shell);
 char				*get_sanitized_path_from_old(char *old_pwd, char *path);
 int					end_with_char(char *str, char c);
+int					process_subst_home(t_shell *shell, int param_index);
+char				*get_home_dup(t_shell *shell);
 #endif

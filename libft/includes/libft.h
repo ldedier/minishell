@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 20:51:39 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/10 17:41:15 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,7 @@ int					ft_delete_node(t_list **prev, t_list **ptr, t_list **vs);
 int					ft_delete_node_ptr(t_list **prv, t_list **ptr, t_list **vs);
 void				ft_lst_mergesort(t_list **list,
 						int (*sort)(void *, void *), int rev);
-
 void				ft_sort_tab(int *tab, size_t size);
-
 t_tree				*ft_tree_new_ptr(void *content);
 void				ft_infix(t_tree *tree, void (*f)(t_tree *));
 void				ft_prefix(t_tree *tree, void (*f)(t_tree *));
@@ -183,5 +181,5 @@ int					ft_dy_tab_realloc(t_dy_tab *d_tab);
 t_dy_tab			*ft_dy_tab_cpy_ptr(t_dy_tab *d_tab);
 t_dy_tab			*ft_dy_tab_cpy_str(t_dy_tab *d_tab);
 int					ft_substitute_str(char **str, char *to_inject,
-						int index_to_inject, int len);
+						int index_to_inject, int len_to_delete);
 #endif
