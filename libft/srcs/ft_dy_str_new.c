@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dy_tab_del.c                                    :+:      :+:    :+:   */
+/*   ft_dy_str_new.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/14 15:38:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 13:20:21 by ldedier          ###   ########.fr       */
+/*   Created: 2019/02/14 14:53:36 by ldedier           #+#    #+#             */
+/*   Updated: 2019/02/14 15:06:40 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_dy_tab_del(t_dy_tab *d_tab)
+t_dy_str	*ft_dy_str_new(size_t max_size)
 {
-	int i;
+	t_dy_str *res;
 
-	i = 0;
-	while ((size_t)i < d_tab->current_size)
+	if (!(res = (t_dy_str *)malloc(sizeof(t_dy_str))))
+		return (NULL);
+	res->current_size = 0;
+	res->max_size = max_size;
+	if (!(res->str = (char *)ft_memalloc(max_size * (sizeof(char) + 1))))
 	{
-		free(d_tab->tbl[i]);
-		i++;
+		free(res);
+		return (NULL);
 	}
-	free(d_tab->tbl);
-	free(d_tab);
+	return (res);
 }

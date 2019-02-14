@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 23:00:59 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:23:52 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		process_execute(char *path, t_shell *shell)
 		return (1);
 	if (g_parent == 0)
 	{
-		if (execve(path, shell->params, (char **)shell->env->tab) == -1)
+		if (execve(path, shell->params, (char **)shell->env->tbl) == -1)
 		{
 			free_all(shell);
 			exit(1);
@@ -102,7 +102,7 @@ int		execute_command(t_shell *shell)
 
 	if (execute_builtin(shell))
 		return (0);
-	if ((path_str = get_env_value((char **)shell->env->tab, "PATH")))
+	if ((path_str = get_env_value((char **)shell->env->tbl, "PATH")))
 	{
 		if ((ret = execute_command_path(shell, path_str)) != 2)
 			return (ret);

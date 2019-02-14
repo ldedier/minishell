@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/12 13:39:53 by ldedier           #+#    #+#              #
-#    Updated: 2019/02/14 12:45:18 by ldedier          ###   ########.fr        #
+#    Updated: 2019/02/14 14:32:06 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ EOC = \033[0m
 SRCS_NO_PREFIX		=	main.c builtins.c env.c execute.c init.c tools.c\
 						set_env.c other_builtins.c expansions.c cd.c\
 						free_all.c print_env.c cd_tools.c expansions_tools.c\
-						execute_tools.c sanitize_path.c home.c
+						execute_tools.c sanitize_path.c home.c init_term.c\
+						signals.c get_command.c
 
 INCLUDES_NO_PREFIX	= minishell.h
 
@@ -44,7 +45,7 @@ INCLUDES = $(addprefix $(INCLUDESDIR)/, $(INCLUDES_NO_PREFIX))
 INC = -I $(INCLUDESDIR) -I $(LIBFTDIR)/$(LIBFT_INCLUDEDIR)\
 
 CFLAGS = -DPATH=$(PWD) -Wall -Wextra -Werror $(INC)
-LFLAGS = -L $(LIBFTDIR) -lft
+LFLAGS = -L $(LIBFTDIR) -lft -ltermcap
 
 ifeq ($(DEBUG), 1)
 	LFLAGS += -fsanitize=address

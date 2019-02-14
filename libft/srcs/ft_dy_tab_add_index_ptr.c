@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 15:55:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/14 16:29:50 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:17:24 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int		ft_dy_tab_add_index_ptr(t_dy_tab *d_tab, void *to_add, size_t index)
 	i = d_tab->current_size;
 	while ((size_t)i > index)
 	{
-		d_tab->tab[i] = d_tab->tab[i - 1];
+		d_tab->tbl[i] = d_tab->tbl[i - 1];
 		i--;
 	}
-	d_tab->tab[i] = to_add;
-	d_tab->tab[++d_tab->current_size] = 0;
+	d_tab->tbl[i] = to_add;
+	d_tab->tbl[++d_tab->current_size] = 0;
 	return (0);
 }

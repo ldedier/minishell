@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 22:28:34 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/29 23:49:26 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:25:11 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		add_to_env(t_dy_tab *env, char *key, char *value)
 	i = 0;
 	while (i < env->current_size)
 	{
-		if (is_key_of_entry(env->tab[i], key))
+		if (is_key_of_entry(env->tbl[i], key))
 		{
 			ft_dy_tab_suppr_index(env, i);
 			break ;

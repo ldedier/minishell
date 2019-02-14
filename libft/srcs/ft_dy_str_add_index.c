@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dy_tab_del.c                                    :+:      :+:    :+:   */
+/*   ft_dy_str_add_index.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/14 15:38:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 13:20:21 by ldedier          ###   ########.fr       */
+/*   Created: 2019/02/14 16:19:55 by ldedier           #+#    #+#             */
+/*   Updated: 2019/02/14 16:20:02 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_dy_tab_del(t_dy_tab *d_tab)
+int		ft_dy_str_add_index(t_dy_str *d_str, char c, size_t index)
 {
 	int i;
 
-	i = 0;
-	while ((size_t)i < d_tab->current_size)
+	if (d_str->current_size >= d_str->max_size)
 	{
-		free(d_tab->tbl[i]);
-		i++;
+		if (ft_dy_str_realloc(d_str))
+			return (1);
 	}
-	free(d_tab->tbl);
-	free(d_tab);
+	i = d_str->current_size;
+	while ((size_t)i > index)
+	{
+		d_str->str[i] = d_str->str[i - 1];
+		i--;
+	}
+	d_str->str[i] = c;
+	d_str->str[++d_str->current_size] = 0;
+	return (0);
 }

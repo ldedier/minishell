@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:18:50 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/29 23:42:20 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:23:20 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		ms_unsetenv(t_shell *shell)
 	else
 	{
 		i = 0;
-		while (shell->env->tab[i])
+		while (shell->env->tbl[i])
 		{
-			if (is_key_of_entry(shell->env->tab[i], shell->params[1]))
+			if (is_key_of_entry(shell->env->tbl[i], shell->params[1]))
 			{
 				ft_dy_tab_suppr_index(shell->env, i);
 				break ;

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 18:24:52 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/22 18:52:20 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:21:30 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_dy_tab	*ft_dy_tab_cpy_ptr(t_dy_tab *d_tab)
 	i = 0;
 	while (i < d_tab->current_size)
 	{
-		if (ft_dy_tab_add_ptr(res, d_tab->tab[i]))
+		if (ft_dy_tab_add_ptr(res, d_tab->tbl[i]))
 			return (NULL);
 		res->current_size = i++ + 1;
 	}

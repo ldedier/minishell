@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   home.c                                             :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/13 23:52:50 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 13:24:16 by ldedier          ###   ########.fr       */
+/*   Created: 2019/02/13 19:59:05 by ldedier           #+#    #+#             */
+/*   Updated: 2019/02/14 13:39:01 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_home_dup(t_shell *shell)
+void	handle_kill(int signal)
 {
-	char *str;
-
-	if (!(str = get_env_value((char **)shell->env->tbl, "HOME")))
-		return (ft_strdup(LOCAL_HOME));
-	else
-		return (ft_strdup(str));
+	(void)signal;
+	ft_dprintf(2, "HANDLE SIGKILL\n");
+	exit(reset_shell(0));
 }
 
-int		process_subst_home(t_shell *shell, int i)
+void	handle_resize(int signal)
 {
-	char *subst;
+	(void)signal;
+	ioctl(0, TIOCGWINSZ, &g_glob.winsize);
+}
 
-	if (!(subst = get_home_dup(shell)))
-		return (1);
-	else if (ft_substitute_str(&shell->params[i], subst, 0, 1))
-	{
-		free(subst);
-		return (1);
-	}
-	free(subst);
-	return (0);
+void	init_signals(void)
+{
+	signal(SIGWINCH, handle_resize);
+	signal(SIGQUIT, handle_kill);
+	signal(SIGTSTP, handle_kill);
+	signal(SIGSTOP, handle_kill);
+	signal(SIGCONT, handle_kill);
+	signal(SIGINT, handle_sigint);
 }

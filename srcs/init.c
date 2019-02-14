@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:27:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/29 23:48:59 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:24:23 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_update_shell_lvl(t_shell *shell)
 	int		new_lvl;
 	char	*new_lvl_str;
 
-	if (!(str = get_env_value((char **)shell->env->tab, "SHLVL")))
+	if (!(str = get_env_value((char **)shell->env->tbl, "SHLVL")))
 		new_lvl = 1;
 	else
 		new_lvl = ft_atoi(str) + 1;

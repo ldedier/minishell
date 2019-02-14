@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/10 17:41:15 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 16:20:33 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,17 @@ typedef struct		s_tree
 
 typedef struct		s_dy_tab
 {
-	void			**tab;
+	void			**tbl;
 	size_t			current_size;
 	size_t			max_size;
 }					t_dy_tab;
+
+typedef struct		s_dy_str
+{
+	char			*str;
+	size_t			current_size;
+	size_t			max_size;
+}					t_dy_str;
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -182,4 +189,8 @@ t_dy_tab			*ft_dy_tab_cpy_ptr(t_dy_tab *d_tab);
 t_dy_tab			*ft_dy_tab_cpy_str(t_dy_tab *d_tab);
 int					ft_substitute_str(char **str, char *to_inject,
 						int index_to_inject, int len_to_delete);
+int					ft_dy_str_add_index(t_dy_str *d_str, char c, size_t index);
+t_dy_str			*ft_dy_str_new(size_t max_size);
+int					ft_dy_str_realloc(t_dy_str *d_str);
+int					ft_free_turn_dy_str(t_dy_str *dy_str, int ret);
 #endif

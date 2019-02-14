@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:22:46 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 05:32:31 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:23:30 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			process_ms_env(t_dy_tab *env)
 	i = 0;
 	while (i < env->current_size)
 	{
-		ft_printf("%s\n", env->tab[i]);
+		ft_printf("%s\n", env->tbl[i]);
 		i++;
 	}
 	return (1);

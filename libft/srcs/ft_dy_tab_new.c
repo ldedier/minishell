@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 14:08:58 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/23 17:38:40 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:20:29 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_dy_tab	*ft_dy_tab_new(size_t max_size)
 		return (NULL);
 	res->current_size = 0;
 	res->max_size = max_size;
-	if (!(res->tab = (void **)ft_memalloc(max_size * (sizeof(void *) + 1))))
+	if (!(res->tbl = (void **)ft_memalloc(max_size * (sizeof(void *) + 1))))
 	{
 		free(res);
 		return (NULL);

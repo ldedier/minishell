@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/13 23:54:06 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 16:20:38 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,20 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <signal.h>
-
+# include <termcap.h>
+# include <term.h>
+# include <sys/ioctl.h>
 # define CWD_LEN	2048
 # define SH_NAME	"minishell"
 # define LOCAL_HOME	"/Users/ldedier"
+# define PROMPT		"$minishell> "
+
+# define CTRL_D		2
 
 typedef enum		e_cd_opt
 {
 	e_cd_opt_logic,
-	e_cd_opt_physic,
+	e_cd_opt_physic
 }					t_cd_opt;
 
 typedef struct		s_env_entry
@@ -50,6 +55,21 @@ typedef struct		s_shell
 	t_dy_tab		*env;
 	int				expand_diff;
 }					t_shell;
+
+/*
+** cursor: index in command_line
+*/
+
+typedef struct		s_glob
+{
+	struct termios	term;
+	struct termios	term_init;
+	t_dy_str		*command;
+	int				cursor;
+	struct winsize	winsize;
+}					t_glob;
+
+t_glob				g_glob;
 
 int					ms_cd(t_shell *shell);
 int					ms_echo(char **params);
@@ -91,4 +111,11 @@ char				*get_sanitized_path_from_old(char *old_pwd, char *path);
 int					end_with_char(char *str, char c);
 int					process_subst_home(t_shell *shell, int param_index);
 char				*get_home_dup(t_shell *shell);
+void				init_signals(void);
+int					init_terminal(char **env);
+int					clear_all(void);
+void				move(int x, int y);
+int					putchar_int(int i);
+int					reset_shell(int ret);
+int					get_command(t_shell *shell, t_dy_str **command);
 #endif

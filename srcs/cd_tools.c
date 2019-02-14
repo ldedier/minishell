@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 00:01:34 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 22:27:45 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:26:01 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		ft_update_old_pwd(char *old_pwd, char *path, t_cd_opt flag,
 		final_pwd = get_path_from_request(old_pwd, path);
 	if (!final_pwd)
 		return (-1);
-	if (!(pwd_value = get_env_value((char **)shell->env->tab, "PWD")))
+	if (!(pwd_value = get_env_value((char **)shell->env->tbl, "PWD")))
 		add_to_env(shell->env, "OLDPWD", old_pwd);
 	else
 		add_to_env(shell->env, "OLDPWD", pwd_value);

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 16:49:58 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 05:39:43 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:25:30 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		process_env_arg(t_shell *shell, int i, char **params_save,
 			shell->params = params_save;
 			return (-1);
 		}
-		execute_command_2(shell, get_env_value((char **)(env_save)->tab,
+		execute_command_2(shell, get_env_value((char **)(env_save)->tbl,
 			"PATH"));
 		ft_free_split(shell->params);
 		shell->params = params_save;

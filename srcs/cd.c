@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 20:30:39 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 06:28:27 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 13:23:40 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		ft_process_ms_cd_args(t_shell *shell, int flag, int i)
 
 	if (!ft_strcmp("-", shell->params[i]))
 	{
-		if ((str = get_env_value((char **)shell->env->tab, "OLDPWD")))
+		if ((str = get_env_value((char **)shell->env->tbl, "OLDPWD")))
 		{
 			ft_process_ms_cd(str, flag, shell);
 			tmp = shell->params;
@@ -92,7 +92,7 @@ int		ms_cd(t_shell *shell)
 			return (ret);
 		i++;
 	}
-	if ((home_str = get_env_value((char **)shell->env->tab, "HOME")))
+	if ((home_str = get_env_value((char **)shell->env->tbl, "HOME")))
 		return (ft_process_ms_cd(home_str, flag, shell));
 	else
 	{

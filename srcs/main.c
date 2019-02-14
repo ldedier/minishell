@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 02:34:27 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/13 23:55:05 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/14 15:52:40 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,16 @@ int		process_command(char **command, t_shell *shell)
 
 int		await_command(t_shell *shell)
 {
-	char			*command;
 	char			**command_split;
 	int				i;
 
-	if (get_next_line(0, &command) == -1)
+	if (get_command(shell, &g_glob.command))
 		return (1);
-	if (!(command_split = ft_strsplit(command, ';')))
-		return (ft_free_turn(command, 1));
+	if (!(command_split = ft_strsplit(g_glob.command->str, ';')))
+		return (ft_free_turn_dy_str(g_glob.command, 1));
 	else
 	{
-		free(command);
+		ft_free_turn_dy_str(g_glob.command, 0);
 		i = 0;
 		while (command_split[i] && shell->running)
 		{
@@ -92,24 +91,26 @@ int		main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	signal(SIGINT, handle_sigint);
+	if (init_terminal(env))
+		return (1);
+	init_signals();
 	if (ft_init_shell(&shell, env))
 	{
 		ft_dprintf(2, "internal malloc error\n");
-		return (1);
+		return (reset_shell(1));
 	}
 	while (shell.running)
 	{
-		if (shell.should_display)
-			ft_printf(CYAN"%s$minishell> "EOC, BOLD);
-		shell.should_display = 1;
+		//if (shell.should_display)
+		//	ft_printf(CYAN"%s%s"EOC, PROMPT, BOLD);
+		//shell.should_display = 1;
 		if (await_command(&shell))
 		{
 			ft_dprintf(2, "internal malloc error\n");
 			free_all(&shell);
-			return (1);
+			return (reset_shell(1));
 		}
 	}
 	free_all(&shell);
-	return (0);
+	return (reset_shell(0));
 }
