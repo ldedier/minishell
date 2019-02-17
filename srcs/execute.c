@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 13:23:52 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/16 16:39:35 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	handle_sigint(int signal)
 		kill(g_parent, SIGINT);
 		ft_printf(CYAN"\n%s$minishell> "EOC, BOLD);
 	}
+	g_glob.cursor = 0;
+	g_glob.command->current_size = 0;
+	g_glob.command->str[0] = '\0';
 }
 
 int		process_execute(char *path, t_shell *shell)

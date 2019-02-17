@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 16:20:38 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/17 23:31:46 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,22 @@
 # include <termcap.h>
 # include <term.h>
 # include <sys/ioctl.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <errno.h>
+
 # define CWD_LEN	2048
 # define SH_NAME	"minishell"
 # define LOCAL_HOME	"/Users/ldedier"
 # define PROMPT		"$minishell> "
 
 # define CTRL_D		2
+
+typedef struct		s_xy
+{
+	int				x;
+	int				y;
+}					t_xy;
 
 typedef enum		e_cd_opt
 {
@@ -118,4 +128,5 @@ void				move(int x, int y);
 int					putchar_int(int i);
 int					reset_shell(int ret);
 int					get_command(t_shell *shell, t_dy_str **command);
+int					render_command_line(t_dy_str *command, int carry);
 #endif
