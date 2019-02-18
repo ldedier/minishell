@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/18 18:05:44 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/18 19:01:20 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	handle_sigint(int signal)
 	{
 		kill(g_parent, SIGINT);
 		get_down_from_command(g_glob.command);
-//		ft_printf("%s%s%s", CYAN, BOLD, PROMPT,EOC);
 		g_glob.cursor = 0;
 		g_glob.command->current_size = 0;
 		g_glob.command->str[0] = '\0';

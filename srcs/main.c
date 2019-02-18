@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 02:34:27 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/18 18:37:29 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/18 18:55:42 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		await_command(t_shell *shell)
 int		main(int argc, char **argv, char **env)
 {
 	t_shell		shell;
-	int ret;
+	int			ret;
 
 	(void)argc;
 	(void)argv;
