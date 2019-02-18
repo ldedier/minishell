@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/16 16:39:35 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/18 18:05:44 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,38 @@
 
 static pid_t g_parent = 1;
 
+void	get_down_from_command(t_dy_str *command)
+{
+	int		full_y;
+	int		cursor_y;
+	int		i;
+	char	*str;
+
+	full_y = get_true_cursor_pos(command->current_size) / g_glob.winsize.ws_col;
+	cursor_y = get_true_cursor_pos(g_glob.cursor) / g_glob.winsize.ws_col;
+	str = tgetstr("do", NULL);
+	i = cursor_y;
+	while (i < full_y)
+	{
+		tputs(str, 1, putchar_int);	
+		i++;
+	}
+	tputs(str, 1, putchar_int);	
+}
+
 void	handle_sigint(int signal)
 {
 	(void)signal;
 	if (g_parent > 0)
 	{
 		kill(g_parent, SIGINT);
-		ft_printf(CYAN"\n%s$minishell> "EOC, BOLD);
+		get_down_from_command(g_glob.command);
+//		ft_printf("%s%s%s", CYAN, BOLD, PROMPT,EOC);
+		g_glob.cursor = 0;
+		g_glob.command->current_size = 0;
+		g_glob.command->str[0] = '\0';
+		render_command_line(g_glob.command, 0);
 	}
-	g_glob.cursor = 0;
-	g_glob.command->current_size = 0;
-	g_glob.command->str[0] = '\0';
 }
 
 int		process_execute(char *path, t_shell *shell)

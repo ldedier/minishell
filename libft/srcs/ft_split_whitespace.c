@@ -6,13 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 18:39:18 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 03:02:08 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/18 16:47:30 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_nb_words(char const *s)
+int	ft_nb_words_whitespace(char const *s)
 {
 	int res;
 	int parseword;
@@ -49,7 +49,7 @@ static int	ft_free_split_n(char **split, int n)
 	return (1);
 }
 
-int			ft_fill_split(char **res, char const *s)
+static int	ft_fill_split(char **res, char const *s)
 {
 	int		i;
 	int		start;
@@ -83,7 +83,7 @@ char		**ft_split_whitespace(char const *s)
 	char	**res;
 	int		nb_words;
 
-	nb_words = ft_nb_words(s);
+	nb_words = ft_nb_words_whitespace(s);
 	if (!(res = (char **)(malloc(sizeof(char *) * (nb_words + 1)))))
 		return (NULL);
 	if (ft_fill_split(res, s))

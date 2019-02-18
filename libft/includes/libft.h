@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 16:20:33 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/18 16:47:06 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,4 +193,6 @@ int					ft_dy_str_add_index(t_dy_str *d_str, char c, size_t index);
 t_dy_str			*ft_dy_str_new(size_t max_size);
 int					ft_dy_str_realloc(t_dy_str *d_str);
 int					ft_free_turn_dy_str(t_dy_str *dy_str, int ret);
+int					ft_dy_str_suppr_index(t_dy_str *d_str, size_t index);
+int					ft_nb_words_whitespace(char const *s);
 #endif

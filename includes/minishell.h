@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/17 23:31:46 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/18 18:37:37 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ int					clear_all(void);
 void				move(int x, int y);
 int					putchar_int(int i);
 int					reset_shell(int ret);
-int					get_command(t_shell *shell, t_dy_str **command);
+int					get_command(t_shell *shell, t_dy_str *command);
 int					render_command_line(t_dy_str *command, int carry);
+int					get_true_cursor_pos(int cursor);
+void				get_down_from_command(t_dy_str *command);
 #endif

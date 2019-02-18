@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:27:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 13:24:23 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/18 18:02:40 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int		ft_init_shell(t_shell *shell, char **env)
 	shell->should_display = 1;
 	if (!(shell->env = ft_dy_tab_new(64)))
 		return (1);
+	if (!(g_glob.command = ft_dy_str_new(128)))
+		return (1);
+	g_glob.cursor = 0;
 	i = 0;
 	while (env[i])
 	{

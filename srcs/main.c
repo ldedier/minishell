@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 02:34:27 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 18:19:17 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/18 18:37:29 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,15 @@ int		await_command(t_shell *shell)
 {
 	char			**command_split;
 	int				i;
+	int				ret;
 
-	if (get_command(shell, &g_glob.command))
-		return (1);
+	if ((ret = get_command(shell, g_glob.command)))
+		return (ret);
 	if (!(command_split = ft_strsplit(g_glob.command->str, ';')))
 		return (ft_free_turn_dy_str(g_glob.command, 1));
 	else
 	{
-		ft_free_turn_dy_str(g_glob.command, 0);
+	//	ft_free_turn_dy_str(g_glob.command, 0);
 		i = 0;
 		while (command_split[i] && shell->running)
 		{
@@ -88,6 +89,7 @@ int		await_command(t_shell *shell)
 int		main(int argc, char **argv, char **env)
 {
 	t_shell		shell;
+	int ret;
 
 	(void)argc;
 	(void)argv;
@@ -101,10 +103,7 @@ int		main(int argc, char **argv, char **env)
 	}
 	while (shell.running)
 	{
-		//if (shell.should_display)
-		//	ft_printf(CYAN"%s%s"EOC, PROMPT, BOLD);
-		//shell.should_display = 1;
-		if (await_command(&shell))
+		if ((ret = await_command(&shell)) && shell.running)
 		{
 			ft_dprintf(2, "internal malloc error\n");
 			free_all(&shell);
