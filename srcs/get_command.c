@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:31:34 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/18 19:01:21 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/18 19:18:21 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	process_right(t_dy_str *command)
 
 
 int		process_escape_sequence(t_dy_str *command,
-		char buffer[6])
+		char buffer[4])
 {
 	if (buffer[1] == 91 && buffer[2] == 67) 
 		process_right(command);
@@ -162,12 +162,14 @@ int		process_clear(t_dy_str *command)
 
 int		get_keys(t_shell *shell, t_dy_str  *command)
 {
-	char buffer[6];
+	char buffer[20];
 
 	(void)shell;
 	while (1)
 	{
-		read(0, buffer, 6);
+		read(0, buffer, 20);
+	//	ft_printf("%d\n", ret);
+	//	exit(1);
 		if (buffer[0] >= 32 && buffer[0] <= 126)
 		{
 			ft_dy_str_add_index(command, buffer[0], g_glob.cursor);
