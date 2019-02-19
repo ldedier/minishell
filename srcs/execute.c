@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/18 19:01:20 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/19 21:20:50 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	get_down_from_command(t_dy_str *command)
 	int		i;
 	char	*str;
 
-	full_y = get_true_cursor_pos(command->current_size) / g_glob.winsize.ws_col;
+	full_y = get_true_cursor_pos(command->nb_chars) / g_glob.winsize.ws_col;
 	cursor_y = get_true_cursor_pos(g_glob.cursor) / g_glob.winsize.ws_col;
 	str = tgetstr("do", NULL);
 	i = cursor_y;
@@ -42,7 +42,9 @@ void	handle_sigint(int signal)
 		get_down_from_command(g_glob.command);
 		g_glob.cursor = 0;
 		g_glob.command->current_size = 0;
+		g_glob.command->current_index = 0;
 		g_glob.command->str[0] = '\0';
+		g_glob.command->nb_chars = 0;
 		render_command_line(g_glob.command, 0);
 	}
 }
@@ -52,6 +54,8 @@ int		process_execute(char *path, t_shell *shell)
 	int	stat_loc;
 
 	if (check_execute(path, shell))
+		return (1);
+	if (reset_shell(0) == -1)
 		return (1);
 	if ((g_parent = fork()) == -1)
 		return (1);
@@ -66,6 +70,8 @@ int		process_execute(char *path, t_shell *shell)
 	else
 	{
 		wait(&stat_loc);
+		if (set_shell(0) == -1)
+			return (1);
 		shell->should_display = !(WIFSIGNALED(stat_loc));
 	}
 	return (0);

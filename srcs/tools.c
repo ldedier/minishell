@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:29:00 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 13:35:29 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/19 21:18:42 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ int		putchar_int(int i)
 int		reset_shell(int ret)
 {
 	if (tcsetattr(0, TCSAFLUSH, &g_glob.term_init) == -1)
+		return (-1);
+	return (ret);
+}
+
+int		set_shell(int ret)
+{
+	if (tcsetattr(0, TCSADRAIN, &g_glob.term) == -1)
 		return (-1);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/18 16:47:06 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/19 20:33:25 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct		s_dy_str
 	char			*str;
 	size_t			current_size;
 	size_t			max_size;
+	size_t			current_index;
+	size_t			nb_chars;
 }					t_dy_str;
 
 void				*ft_memset(void *s, int c, size_t n);
@@ -195,4 +197,5 @@ int					ft_dy_str_realloc(t_dy_str *d_str);
 int					ft_free_turn_dy_str(t_dy_str *dy_str, int ret);
 int					ft_dy_str_suppr_index(t_dy_str *d_str, size_t index);
 int					ft_nb_words_whitespace(char const *s);
+int					to_add_to_command(unsigned char *buffer, int nb_bytes);
 #endif
