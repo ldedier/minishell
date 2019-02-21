@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/12 13:39:53 by ldedier           #+#    #+#              #
-#    Updated: 2019/02/20 14:39:43 by ldedier          ###   ########.fr        #
+#    Updated: 2019/02/22 00:26:29 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,9 @@ SRCS_NO_PREFIX		=	main.c builtins.c env.c execute.c init.c tools.c\
 						execute_tools.c sanitize_path.c home.c init_term.c\
 						signals.c get_command.c is_printable_utf8.c\
 						utf8_tools.c edit_command.c cursor_motion.c\
-						auto_completion.c
+						auto_completion.c populate_word_by_index.c\
+						add_choices_from_dir.c preprocess_choice_add.c\
+						populate_choices.c
 
 INCLUDES_NO_PREFIX	= minishell.h
 

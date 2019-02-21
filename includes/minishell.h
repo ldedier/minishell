@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/21 20:37:23 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/22 00:27:20 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,13 @@ int					process_clear(t_dy_str *command);
 void				replace_cursor_after_render(void);
 void				go_up_to_prompt(int width, int cursor);
 int					process_tab(t_shell *shell, t_dy_str *command);
-
+int					ft_strlen_utf8(char *str);
+int					populate_word_by_index(char *s, int index, t_word *word);
+int					ft_preprocess_choice_add(t_shell *shell, char *entry,
+						t_dlist ***to_add);
+int					add_choices_from_dir(t_shell *shell, t_word *word,
+						char *dirname);
+char				*get_first_word(char *str);
+int					populate_choices_from_word(t_dy_str *command,
+						t_shell *shell, t_word *word);
 #endif
