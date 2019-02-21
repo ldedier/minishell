@@ -1,0 +1,64 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cursor_motion.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/20 13:45:53 by ldedier           #+#    #+#             */
+/*   Updated: 2019/02/20 13:47:01 by ldedier          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+int		get_true_cursor_pos(int cursor)
+{
+	return (cursor + ft_strlen(PROMPT));
+}
+
+void	go_up_to_prompt(int width, int cursor)
+{
+	char		*str;
+	int			val;
+	int			i;
+	
+	str = tgetstr("up", NULL);
+	i = 0;
+	ft_printf(" ");
+	val = ((get_true_cursor_pos(cursor)) / width);
+	while (i < val)
+	{
+		tputs(str, 1, putchar_int);
+		i++;
+	}
+	str = tgetstr("cr", NULL);
+	tputs(str, 1, putchar_int);
+}
+
+void	replace_cursor_after_render(void)
+{
+	char	*str;
+	int		x;
+	int		y;
+
+	go_up_to_prompt(g_glob.winsize.ws_col, g_glob.command->nb_chars); 
+	y = (get_true_cursor_pos(g_glob.cursor)) / g_glob.winsize.ws_col;
+	x = (get_true_cursor_pos(g_glob.cursor)) % g_glob.winsize.ws_col;
+	str = tgetstr("do", NULL);
+	while (y--)
+		tputs(str, 1, putchar_int);
+	str = tgetstr("nd", NULL);
+	while (x--)
+		tputs(str, 1, putchar_int);
+}
+
+int		process_clear(t_dy_str *command)
+{
+	char *str;
+
+	str = tgetstr("cl", NULL);
+	tputs(str, 1, putchar_int);
+	render_command_line(command, 0);
+	return (0);
+}

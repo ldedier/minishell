@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/12 13:39:53 by ldedier           #+#    #+#              #
-#    Updated: 2019/02/14 14:32:06 by ldedier          ###   ########.fr        #
+#    Updated: 2019/02/20 14:39:43 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,9 @@ SRCS_NO_PREFIX		=	main.c builtins.c env.c execute.c init.c tools.c\
 						set_env.c other_builtins.c expansions.c cd.c\
 						free_all.c print_env.c cd_tools.c expansions_tools.c\
 						execute_tools.c sanitize_path.c home.c init_term.c\
-						signals.c get_command.c
+						signals.c get_command.c is_printable_utf8.c\
+						utf8_tools.c edit_command.c cursor_motion.c\
+						auto_completion.c
 
 INCLUDES_NO_PREFIX	= minishell.h
 

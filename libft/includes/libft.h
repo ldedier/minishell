@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/19 20:33:25 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/21 18:20:21 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_dlist
+{
+	void			*content;
+	size_t			content_size;
+	struct s_dlist	*next;
+	struct s_dlist	*prev;
+}					t_dlist;
 
 typedef struct		s_tree
 {
@@ -125,26 +133,26 @@ void				*ft_lstpop_ptr(t_list **lst);
 void				ft_lstpop(t_list **lst);
 int					ft_lstlength(t_list *list);
 int					ft_add_to_list_ptr(t_list **list, void *content,
-						size_t size);
+		size_t size);
 int					ft_add_to_list_ptr_back(t_list **list, void *content,
-						size_t size);
+		size_t size);
 int					ft_add_to_list_back(t_list **list, void *content,
-						size_t size);
+		size_t size);
 void				ft_lstdel_ptr(t_list **list);
 void				ft_lstdel_value(t_list **list);
 int					ft_delete_node(t_list **prev, t_list **ptr, t_list **vs);
 int					ft_delete_node_ptr(t_list **prv, t_list **ptr, t_list **vs);
 void				ft_lst_mergesort(t_list **list,
-						int (*sort)(void *, void *), int rev);
+		int (*sort)(void *, void *), int rev);
 void				ft_sort_tab(int *tab, size_t size);
 t_tree				*ft_tree_new_ptr(void *content);
 void				ft_infix(t_tree *tree, void (*f)(t_tree *));
 void				ft_prefix(t_tree *tree, void (*f)(t_tree *));
 void				ft_postfix(t_tree *tree, void (*f)(t_tree *));
 int					ft_tree_add_sorted_mul(t_tree **tree, void *content,
-						int (*sort)(void *, void *), int mul);
+		int (*sort)(void *, void *), int mul);
 int					ft_tree_add_sorted(t_tree **tree, void *content,
-						int (*sort)(void *, void *));
+		int (*sort)(void *, void *));
 void				ft_tree_del(t_tree **tree, void (*free_func)(void *));
 void				ft_tree_del_value(t_tree **tree);
 void				ft_tree_del_ptr(t_tree **tree);
@@ -169,11 +177,11 @@ int					ft_isspace(int c);
 int					ft_onesign(int n);
 void				ft_print_line(char *str);
 char				*ft_strjoin_3(char const *s1, char const *s2,
-						char const *s3);
+		char const *s3);
 int					ft_free_turn(void *to_free, int ret);
 char				*ft_free_turn_str(char **to_del, char *res);
 char				*ft_free_turn_strs(char **to_del, char **to_del2,
-						char *res);
+		char *res);
 int					ft_is_in_str(const char *str, char c);
 long long int		ft_atoll(const char *str);
 int					ft_round(double value);
@@ -181,7 +189,7 @@ t_dy_tab			*ft_dy_tab_new(size_t max_size);
 int					ft_dy_tab_add_ptr(t_dy_tab *d_tab, void *to_add);
 int					ft_dy_tab_add_str(t_dy_tab *d_tab, void *to_add);
 int					ft_dy_tab_add_index_ptr(t_dy_tab *d_tab, void *to_add,
-						size_t index);
+		size_t index);
 void				ft_dy_tab_suppr_index(t_dy_tab *d_tab, size_t index);
 void				ft_dy_tab_del_ptr(t_dy_tab *d_tab);
 void				ft_dy_tab_del(t_dy_tab *d_tab);
@@ -190,12 +198,32 @@ int					ft_dy_tab_realloc(t_dy_tab *d_tab);
 t_dy_tab			*ft_dy_tab_cpy_ptr(t_dy_tab *d_tab);
 t_dy_tab			*ft_dy_tab_cpy_str(t_dy_tab *d_tab);
 int					ft_substitute_str(char **str, char *to_inject,
-						int index_to_inject, int len_to_delete);
+		int index_to_inject, int len_to_delete);
 int					ft_dy_str_add_index(t_dy_str *d_str, char c, size_t index);
 t_dy_str			*ft_dy_str_new(size_t max_size);
 int					ft_dy_str_realloc(t_dy_str *d_str);
 int					ft_free_turn_dy_str(t_dy_str *dy_str, int ret);
 int					ft_dy_str_suppr_index(t_dy_str *d_str, size_t index);
 int					ft_nb_words_whitespace(char const *s);
-int					to_add_to_command(unsigned char *buffer, int nb_bytes);
+void				ft_dlstadd(t_dlist **alst, t_dlist *newelem);
+t_dlist				*ft_dlstnew_ptr(void const *content, size_t content_size);
+t_dlist				*ft_dlstnew(void const *content, size_t content_size);
+void				ft_dlstpushback(t_dlist **alst, t_dlist *newelem);
+void				*ft_dlstpop_ptr(t_dlist **lst);
+void				ft_dlstpop(t_dlist **lst);
+int					ft_add_to_dlist_ptr(t_dlist **list, void *content,
+		size_t size);
+int					ft_add_to_dlist_ptr_back(t_dlist **list, void *content,
+		size_t size);
+int					ft_add_to_dlist_back(t_dlist **list, void *content,
+		size_t size);
+void				ft_dlstiter(t_dlist *lst, void (*f)(t_dlist *elem));
+void				ft_dlstiter_inv(t_dlist *lst, void (*f)(t_dlist *elem));
+void				ft_dlstdel_ptr(t_dlist **list);
+void				ft_dlstdel(t_dlist **list);
+int					ft_dlstlength(t_dlist *dlist);
+int					ft_dlstadd_sorted(t_dlist **dlst,
+						void *content, int (*sort)(void*, void *));
+int					ft_substitute_dy_str(t_dy_str *d_str, char *to_inject,
+						int index_to_inject, int len);
 #endif

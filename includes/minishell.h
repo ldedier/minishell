@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/19 21:18:51 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/21 20:37:23 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,24 @@
 
 # define CTRL_D				2
 # define READ_BUFF_SIZE		4
+
+
+/*
+** start_index	: index of the word in the buffer
+** word_index	: number of words before it (+1)
+** len			: length of the word
+** cursor		: index of the cursor within the word
+*/
+
+typedef struct		s_word
+{
+	char			*str;
+	int				start_index;
+	int				word_index;
+	int				len;
+	int				has_previous;
+	int				cursor_x;
+}					t_word;
 
 typedef struct		s_xy
 {
@@ -63,6 +81,8 @@ typedef struct		s_shell
 	char			running;
 	char			should_display;
 	char			**params;
+	t_dlist			*choices;
+	int				choices_common_len;
 	t_dy_tab		*env;
 	int				expand_diff;
 }					t_shell;
@@ -133,4 +153,16 @@ int					get_command(t_shell *shell, t_dy_str *command);
 int					render_command_line(t_dy_str *command, int carry);
 int					get_true_cursor_pos(int cursor);
 void				get_down_from_command(t_dy_str *command);
+int					get_left_w_char_index(t_dy_str *command);
+int					get_right_w_char_index(t_dy_str *command);
+int					is_printable_utf8(unsigned char *buffer, int nb_bytes);
+void				process_delete(t_dy_str *command);
+void				process_suppr(t_dy_str *command);
+void				process_left(t_dy_str *command);
+void				process_right(t_dy_str *command);
+int					process_clear(t_dy_str *command);
+void				replace_cursor_after_render(void);
+void				go_up_to_prompt(int width, int cursor);
+int					process_tab(t_shell *shell, t_dy_str *command);
+
 #endif

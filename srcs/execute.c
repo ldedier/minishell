@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/19 21:20:50 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/21 18:55:20 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_sigint(int signal)
 		g_glob.cursor = 0;
 		g_glob.command->current_size = 0;
 		g_glob.command->current_index = 0;
-		g_glob.command->str[0] = '\0';
+		ft_bzero(g_glob.command->str, g_glob.command->max_size);
 		g_glob.command->nb_chars = 0;
 		render_command_line(g_glob.command, 0);
 	}
