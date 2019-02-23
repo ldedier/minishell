@@ -26,16 +26,16 @@ int		process_preprocess_choice_add(t_shell *shell,
 			char *entry, int *to_ret, t_dlist ***to_add)
 {
 	t_dlist *ptr;
-	char	*str;
 	int		ret;
 	int		first;
+	t_file	*file;
 
 	ptr = shell->choices;
 	first = 1;
 	while ((ptr != shell->choices && ptr != NULL) || (first && ptr != NULL))
 	{
-		str = ptr->content;
-		if (!(ret = ft_strcmp(str, entry)))
+		file = ptr->content;
+		if (!(ret = ft_strcmp(file->name, entry)))
 			return (ft_free_turn(entry, 1));
 		if (ret > 0 && *to_add == NULL)
 		{
@@ -43,8 +43,9 @@ int		process_preprocess_choice_add(t_shell *shell,
 				*to_ret = 2;
 			*to_add = &(ptr->prev);
 		}
+
 		shell->choices_common_len = ft_min(shell->choices_common_len,
-				str_cmp_len(entry, str));
+				str_cmp_len(entry, file->name));
 		ptr = ptr->next;
 		first = 0;
 	}

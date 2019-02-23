@@ -22,13 +22,13 @@ char	*get_home_dup(t_shell *shell)
 		return (ft_strdup(str));
 }
 
-int		process_subst_home(t_shell *shell, int i)
+int		process_subst_home(t_shell *shell, char **str)
 {
 	char *subst;
 
 	if (!(subst = get_home_dup(shell)))
 		return (1);
-	else if (ft_substitute_str(&shell->params[i], subst, 0, 1))
+	else if (ft_substitute_str(str, subst, 0, 1))
 	{
 		free(subst);
 		return (1);

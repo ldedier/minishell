@@ -32,7 +32,7 @@ int		preprocess_expansions(t_shell *shell)
 		}
 		else if ((!ft_strncmp(shell->params[i], "~/", 2) ||
 			!ft_strncmp(shell->params[i], "~:", 2))
-				&& (process_subst_home(shell, i)))
+				&& (process_subst_home(shell, &shell->params[i])))
 			return (-1);
 		i++;
 	}

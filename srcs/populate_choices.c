@@ -22,7 +22,7 @@ int		add_choices_path(t_shell *shell, t_word *word, char *path_str)
 	i = 0;
 	while (path_split[i])
 	{
-		if (add_choices_from_dir(shell, word, path_split[i]))
+		if (add_choices_from_dir(shell, word, path_split[i], NULL))
 		{
 			ft_free_split(path_split);
 			return (1);
@@ -37,8 +37,7 @@ int		populate_choices_from_binaries(t_shell *shell, t_word *word)
 {
 	char *path_str;
 
-	(void)shell;
-	(void)word;
+	word->to_compare = word->str;
 	if ((path_str = get_env_value((char **)shell->env->tbl, "PATH")))
 	{
 		if (add_choices_path(shell, word, path_str))
@@ -49,13 +48,55 @@ int		populate_choices_from_binaries(t_shell *shell, t_word *word)
 		return (0);
 }
 
+int		get_path_and_file_from_str(char *str, char **path, char **file)
+{
+	int index;
+
+	*path = NULL;
+	*file = NULL;
+	if ((index = ft_strichr_last(str, '/')) == -1)
+	{
+		if (!(*path = ft_strdup("")))
+			return (1);
+		if (!(*file = ft_strdup(str)))
+			return (1);
+	}
+	else
+	{
+		if (!(*path = ft_strndup(str, index + 1)))
+			return (1);
+		if (!(*file = ft_strnrest(str, index + 1)))
+			return (1);
+	}
+	return (0);
+}
+
 int		populate_choices_from_folder(t_shell *shell, char *binary,
 		t_word *word)
 {
-
+	char	*path;
+	char	*transformed_path;
+	char	*file;
+	
 	(void)shell;
-	(void)binary;
 	(void)word;
+	if (binary)
+		free(binary);
+	if (get_path_and_file_from_str(word->str,
+				&transformed_path, &file))
+		return (1);
+	if (!(path = ft_strdup(transformed_path)))
+		return (ft_free_turn(transformed_path, 1));
+	if (!ft_strncmp(path, "~/", 2) &&
+			process_subst_home(shell, &transformed_path))
+	{
+		free(transformed_path);
+		free(path);
+		return (1);
+	}
+	word->to_compare = file;
+	if (add_choices_from_dir(shell, word, transformed_path, path))
+		return (1);
 	return (0);
 }
 
@@ -68,6 +109,11 @@ int		populate_choices_from_word(t_dy_str *command,
 	{
 		if (populate_choices_from_binaries(shell, word))
 			return (1);
+		if (shell->choices == NULL)
+		{
+			if (populate_choices_from_folder(shell, NULL, word))
+				return (1);
+		}
 	}
 	else
 	{

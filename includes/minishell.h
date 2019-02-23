@@ -45,12 +45,20 @@
 typedef struct		s_word
 {
 	char			*str;
+	char			*to_compare;
 	int				start_index;
 	int				word_index;
 	int				len;
 	int				has_previous;
 	int				cursor_x;
 }					t_word;
+
+typedef struct		s_file
+{
+	char			*name;
+	char			unstatable;
+	struct stat		st;
+}					t_file;
 
 typedef struct		s_xy
 {
@@ -140,7 +148,7 @@ int					execute_command_path(t_shell *shell, char *path_str);
 int					execute_command_no_path(t_shell *shell);
 char				*get_sanitized_path_from_old(char *old_pwd, char *path);
 int					end_with_char(char *str, char c);
-int					process_subst_home(t_shell *shell, int param_index);
+int					process_subst_home(t_shell *shell, char **to_replace);
 char				*get_home_dup(t_shell *shell);
 void				init_signals(void);
 int					init_terminal(char **env);
@@ -169,7 +177,7 @@ int					populate_word_by_index(char *s, int index, t_word *word);
 int					ft_preprocess_choice_add(t_shell *shell, char *entry,
 						t_dlist ***to_add);
 int					add_choices_from_dir(t_shell *shell, t_word *word,
-						char *dirname);
+						char *dirnamem, char *prefix);
 char				*get_first_word(char *str);
 int					populate_choices_from_word(t_dy_str *command,
 						t_shell *shell, t_word *word);

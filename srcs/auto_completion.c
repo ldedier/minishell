@@ -43,13 +43,19 @@ void	print_node(t_dlist *dlist)
 
 char	*get_completion_str(t_shell *shell)
 {
+	t_file *file;
+
+	file = (t_file *)shell->choices->content;
 	if (ft_dlstlength(shell->choices) == 1)
 	{
 		shell->choices_common_len++;
-		return (ft_strjoin(shell->choices->content, " "));
+		if (!file->unstatable && S_ISDIR(file->st.st_mode))
+			return (ft_strjoin(file->name, "/"));
+		else
+			return (ft_strjoin(file->name, " "));
 	}
 	else
-		return (ft_strndup(shell->choices->content,
+		return (ft_strndup(file->name,
 					shell->choices_common_len));
 }
 

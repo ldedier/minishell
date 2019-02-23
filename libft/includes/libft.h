@@ -226,4 +226,5 @@ int					ft_dlstadd_sorted(t_dlist **dlst,
 						void *content, int (*sort)(void*, void *));
 int					ft_substitute_dy_str(t_dy_str *d_str, char *to_inject,
 						int index_to_inject, int len);
+int					ft_strichr_last(const char *s, int c);
 #endif
