@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/21 18:55:20 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 19:13:07 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		process_execute(char *path, t_shell *shell)
 
 	if (check_execute(path, shell))
 		return (1);
-	if (reset_shell(0) == -1)
+	if (reset_shell(0) == -1)	
 		return (1);
 	if ((g_parent = fork()) == -1)
 		return (1);

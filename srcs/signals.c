@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:59:05 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/17 23:45:05 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 19:08:49 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	init_signals(void)
 	signal(SIGTSTP, handle_kill);
 	signal(SIGSTOP, handle_kill);
 	signal(SIGCONT, handle_kill);
+	signal(SIGKILL, handle_sigint);
 	signal(SIGINT, handle_sigint);
 }
