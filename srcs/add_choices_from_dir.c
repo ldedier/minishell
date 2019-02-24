@@ -60,7 +60,10 @@ int		process_add_choices_from_dir(t_shell *shell,
 		if (!(file = new_file(str)))
 			return (1);
 		if (!(to_add = ft_dlstnew_ptr(file, sizeof(t_file))))
+		{
+			free(file);
 			return (ft_free_turn(str, 1));
+		}
 		add_node_next_to_node(prev_to_add, to_add);
 		if (ret)
 			shell->choices = shell->choices->prev;

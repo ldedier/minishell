@@ -71,25 +71,25 @@ int		get_path_and_file_from_str(char *str, char **path, char **file)
 	return (0);
 }
 
-int		populate_choices_from_folder(t_shell *shell, char *binary,
-		t_word *word)
+
+int		populate_choices_from_folder(t_shell *shell, t_word *word)
 {
 	char	*path;
 	char	*transformed_path;
 	char	*file;
 	
-	(void)shell;
-	(void)word;
-	if (binary)
-		free(binary);
 	if (get_path_and_file_from_str(word->str,
 				&transformed_path, &file))
 		return (1);
 	if (!(path = ft_strdup(transformed_path)))
+	{
+		free(file);
 		return (ft_free_turn(transformed_path, 1));
+	}
 	if (!ft_strncmp(path, "~/", 2) &&
 			process_subst_home(shell, &transformed_path))
 	{
+		free(file);
 		free(transformed_path);
 		free(path);
 		return (1);
@@ -97,7 +97,17 @@ int		populate_choices_from_folder(t_shell *shell, char *binary,
 	word->to_compare = file;
 	if (add_choices_from_dir(shell, word, transformed_path, path))
 		return (1);
+	free(file);
+	free(transformed_path);
+	free(path);
 	return (0);
+}
+
+int		populate_choices_from_folder_binary(t_shell *shell, char *binary,
+			t_word *word)
+{
+	free(binary);
+	return (populate_choices_from_folder(shell, word));
 }
 
 int		populate_choices_from_word(t_dy_str *command,
@@ -111,7 +121,7 @@ int		populate_choices_from_word(t_dy_str *command,
 			return (1);
 		if (shell->choices == NULL)
 		{
-			if (populate_choices_from_folder(shell, NULL, word))
+			if (populate_choices_from_folder(shell, word))
 				return (1);
 		}
 	}
@@ -119,7 +129,7 @@ int		populate_choices_from_word(t_dy_str *command,
 	{
 		if (!(binary = get_first_word(command->str)))
 			return (1);
-		if (populate_choices_from_folder(shell, binary, word))
+		if (populate_choices_from_folder_binary(shell, binary, word))
 			return (1);
 	}
 	return (0);

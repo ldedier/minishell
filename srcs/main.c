@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+void __attribute__((destructor)) end();
+void    end(void) //permet de mieux checker les leaks !
+{
+	ft_printf("destructor loop\n");
+	while(1);
+}
+
 int		preprocess_expansions(t_shell *shell)
 {
 	int		i;

@@ -99,7 +99,7 @@ int		process_tab(t_shell *shell, t_dy_str *command)
 	ret = 0;
 	shell->choices_common_len = -1;
 	populate_word_by_index(command->str, command->current_index, &word);
-	ft_dlstdel(&shell->choices);
+	ft_dlstdel(&shell->choices, &free_file_dlst);
 	if (populate_choices_from_word(command, shell, &word))
 		return (ft_free_turn(word.str, 1));
 	if (shell->choices != NULL)

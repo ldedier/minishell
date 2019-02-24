@@ -220,11 +220,13 @@ int					ft_add_to_dlist_back(t_dlist **list, void *content,
 void				ft_dlstiter(t_dlist *lst, void (*f)(t_dlist *elem));
 void				ft_dlstiter_inv(t_dlist *lst, void (*f)(t_dlist *elem));
 void				ft_dlstdel_ptr(t_dlist **list);
-void				ft_dlstdel(t_dlist **list);
+void				ft_dlstdel(t_dlist **list, void (*del) (void *, size_t));
+void				ft_dlstdel_value(t_dlist **list);
 int					ft_dlstlength(t_dlist *dlist);
 int					ft_dlstadd_sorted(t_dlist **dlst,
 						void *content, int (*sort)(void*, void *));
 int					ft_substitute_dy_str(t_dy_str *d_str, char *to_inject,
 						int index_to_inject, int len);
 int					ft_strichr_last(const char *s, int c);
+void				free_file_dlst(void *f, size_t dummy);
 #endif
