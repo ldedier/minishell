@@ -15,8 +15,8 @@
 void __attribute__((destructor)) end();
 void    end(void) //permet de mieux checker les leaks !
 {
-	ft_printf("destructor loop\n");
-	while(1);
+//	ft_printf("destructor loop\n");
+//	while(1);
 }
 
 int		preprocess_expansions(t_shell *shell)
@@ -77,7 +77,6 @@ int		await_command(t_shell *shell)
 		return (ft_free_turn_dy_str(g_glob.command, 1));
 	else
 	{
-	//	ft_free_turn_dy_str(g_glob.command, 0);
 		i = 0;
 		while (command_split[i] && shell->running)
 		{
@@ -106,6 +105,7 @@ int		main(int argc, char **argv, char **env)
 	if (ft_init_shell(&shell, env))
 	{
 		ft_dprintf(2, "internal malloc error\n");
+		free_all(&shell);
 		return (reset_shell(1));
 	}
 	while (shell.running)

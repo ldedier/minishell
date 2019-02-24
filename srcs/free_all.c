@@ -14,6 +14,7 @@
 
 void	free_file(t_file *file)
 {
+//	ft_printf("%s\n", file->name);
 	free(file->name);
 	free(file);
 }
@@ -27,4 +28,5 @@ void	free_file_dlst(void *f, size_t dummy)
 void	free_all(t_shell *shell)
 {
 	ft_dy_tab_del(shell->env);
+	ft_dlstdel(&shell->choices, &free_file_dlst);
 }

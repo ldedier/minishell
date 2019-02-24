@@ -35,10 +35,10 @@ char	*get_first_word(char *str)
 
 void	print_node(t_dlist *dlist)
 {
-	char *content;
-
+	t_file *content;
+	
 	content = dlist->content;
-	ft_printf("%s\n", content);
+	ft_printf("%s\n", content->name);
 }
 
 char	*get_completion_str(t_shell *shell)
