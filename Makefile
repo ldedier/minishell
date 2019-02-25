@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/12 13:39:53 by ldedier           #+#    #+#              #
-#    Updated: 2019/02/24 17:24:40 by ldedier          ###   ########.fr        #
+#    Updated: 2019/02/24 22:50:03 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRCS_NO_PREFIX		=	main.c builtins.c env.c execute.c init.c tools.c\
 						utf8_tools.c edit_command.c cursor_motion.c\
 						auto_completion.c populate_word_by_index.c\
 						add_choices_from_dir.c preprocess_choice_add.c\
-						populate_choices.c 
+						populate_choices.c keys.c shell_tools.c
 
 INCLUDES_NO_PREFIX	= minishell.h
 
@@ -48,7 +48,7 @@ INCLUDES = $(addprefix $(INCLUDESDIR)/, $(INCLUDES_NO_PREFIX))
 
 INC = -I $(INCLUDESDIR) -I $(LIBFTDIR)/$(LIBFT_INCLUDEDIR)\
 
-CFLAGS = -DPATH=$(PWD) -Wall -Wextra -Werror $(INC)
+CFLAGS = -DPATH=$(PWD) $(INC) #-Wall -Wextra -Werror $(INC)
 LFLAGS = -L $(LIBFTDIR) -lft -ltermcap
 
 ifeq ($(DEBUG), 1)

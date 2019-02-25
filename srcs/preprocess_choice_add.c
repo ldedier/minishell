@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 00:12:06 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/22 00:20:27 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 21:39:38 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		process_preprocess_choice_add(t_shell *shell,
 				*to_ret = 2;
 			*to_add = &(ptr->prev);
 		}
-
 		shell->choices_common_len = ft_min(shell->choices_common_len,
 				str_cmp_len(entry, file->name));
 		ptr = ptr->next;

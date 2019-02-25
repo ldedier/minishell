@@ -6,13 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 00:06:33 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/22 00:10:06 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 21:21:15 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	add_node_next_to_node(t_dlist **node, t_dlist *to_add)
+void		add_node_next_to_node(t_dlist **node, t_dlist *to_add)
 {
 	t_dlist *tmp;
 
@@ -42,7 +42,7 @@ t_file		*new_file(char *str)
 	return (res);
 }
 
-int		process_add_choices_from_dir(t_shell *shell,
+int			process_add_choices_from_dir(t_shell *shell,
 			struct dirent *entry, char *prefix)
 {
 	char			*str;
@@ -71,11 +71,11 @@ int		process_add_choices_from_dir(t_shell *shell,
 	return (0);
 }
 
-int		add_choices_from_dir(t_shell *shell, t_word *word, char *dirname,
+int			add_choices_from_dir(t_shell *shell, t_word *word, char *dirname,
 			char *prefix)
 {
-	DIR             *dir;
-	struct dirent   *entry;
+	DIR				*dir;
+	struct dirent	*entry;
 	int				len;
 
 	len = ft_strlen(word->to_compare);
@@ -97,4 +97,3 @@ int		add_choices_from_dir(t_shell *shell, t_word *word, char *dirname,
 	closedir(dir);
 	return (0);
 }
-

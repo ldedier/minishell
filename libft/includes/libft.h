@@ -6,7 +6,7 @@
 /*   By: ldedier <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:21:30 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/21 18:20:21 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 21:28:59 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,9 @@ void				ft_print_line(char *str);
 char				*ft_strjoin_3(char const *s1, char const *s2,
 		char const *s3);
 int					ft_free_turn(void *to_free, int ret);
+int					ft_free_turn_2(void *to_free, void *to_free2, int ret);
+int					ft_free_turn_3(void *to_free, void *to_free2,
+						void *to_free3, int ret);
 char				*ft_free_turn_str(char **to_del, char *res);
 char				*ft_free_turn_strs(char **to_del, char **to_del2,
 		char *res);

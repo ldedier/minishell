@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 13:33:23 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/20 13:33:25 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 22:48:59 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ int		is_utf8_len_3(unsigned char *buffer)
 
 int		is_utf8_len_4(unsigned char *buffer)
 {
-	if (!is_utf8_len_header(buffer[0], 4) ||
-			!is_utf8_next_byte(buffer[1]) || !is_utf8_next_byte(buffer[2]) || 
-				!is_utf8_next_byte(buffer[3]))
+	if (!is_utf8_len_header(buffer[0], 4) || !is_utf8_next_byte(buffer[1])
+			|| !is_utf8_next_byte(buffer[2]) || !is_utf8_next_byte(buffer[3]))
 		return (0);
 	else if (buffer[0] == 240)
 	{
@@ -77,7 +76,8 @@ int		is_utf8_len_4(unsigned char *buffer)
 int		is_printable_utf8(unsigned char *buffer, int nb_bytes)
 {
 	if (nb_bytes == 1)
-		return (buffer[0] >= 32 && buffer[0] <= 126 && !(buffer[0] & 0b10000000));
+		return (buffer[0] >= 32 && buffer[0] <= 126 &&
+			!(buffer[0] & 0b10000000));
 	else if (nb_bytes == 2)
 		return (is_utf8_len_header(buffer[0], 2)
 			&& is_utf8_next_byte(buffer[1]));
@@ -85,6 +85,6 @@ int		is_printable_utf8(unsigned char *buffer, int nb_bytes)
 		return (is_utf8_len_3(buffer));
 	else if (nb_bytes == 4)
 		return (is_utf8_len_4(buffer));
-	else 
+	else
 		return (0);
 }

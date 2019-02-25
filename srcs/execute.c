@@ -6,32 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 19:13:07 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 22:31:45 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static pid_t g_parent = 1;
-
-void	get_down_from_command(t_dy_str *command)
-{
-	int		full_y;
-	int		cursor_y;
-	int		i;
-	char	*str;
-
-	full_y = get_true_cursor_pos(command->nb_chars) / g_glob.winsize.ws_col;
-	cursor_y = get_true_cursor_pos(g_glob.cursor) / g_glob.winsize.ws_col;
-	str = tgetstr("do", NULL);
-	i = cursor_y;
-	while (i < full_y)
-	{
-		tputs(str, 1, putchar_int);	
-		i++;
-	}
-	tputs(str, 1, putchar_int);	
-}
 
 void	handle_sigint(int signal)
 {
@@ -55,7 +36,7 @@ int		process_execute(char *path, t_shell *shell)
 
 	if (check_execute(path, shell))
 		return (1);
-	if (reset_shell(0) == -1)	
+	if (reset_shell(0) == -1)
 		return (1);
 	if ((g_parent = fork()) == -1)
 		return (1);

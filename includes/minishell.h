@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/22 00:27:20 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 22:45:06 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,4 +181,10 @@ int					add_choices_from_dir(t_shell *shell, t_word *word,
 char				*get_first_word(char *str);
 int					populate_choices_from_word(t_dy_str *command,
 						t_shell *shell, t_word *word);
+int					get_path_and_file_from_str(char *str, char **path,
+						char **file);
+void				process_right(t_dy_str *command);
+int					get_keys(t_shell *shell, t_dy_str *command);
+int					add_to_command(t_dy_str *command,
+						unsigned char buffer[READ_BUFF_SIZE], int nb_bytes);
 #endif

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:56:46 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/22 00:28:48 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 21:22:10 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,6 @@ char	*get_first_word(char *str)
 		return (NULL);
 	else
 		return (ft_strndup(&(str[start]), i - start));
-}
-
-void	print_node(t_dlist *dlist)
-{
-	t_file *content;
-	
-	content = dlist->content;
-	ft_printf("%s\n", content->name);
 }
 
 char	*get_completion_str(t_shell *shell)
@@ -83,8 +75,6 @@ int		process_completion(t_shell *shell, t_dy_str *command, t_word word)
 			if (process_substitute_command(command, str, word, shell))
 				return (ft_free_turn(str, 1));
 		}
-//		else
-//			ft_dlstiter(shell->choices, print_node);
 	}
 	else if (process_substitute_command(command, str, word, shell))
 		return (ft_free_turn(str, 1));

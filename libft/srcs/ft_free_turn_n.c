@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   ft_free_turn_n.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 16:45:53 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 21:40:58 by ldedier          ###   ########.fr       */
+/*   Created: 2019/02/24 21:23:17 by ldedier           #+#    #+#             */
+/*   Updated: 2019/02/24 21:25:04 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	free_file(t_file *file)
+int		ft_free_turn_2(void *to_free, void *to_free2, int ret)
 {
-	free(file->name);
-	free(file);
+	free(to_free);
+	free(to_free2);
+	return(ret);
 }
 
-void	free_file_dlst(void *f, size_t dummy)
+int		ft_free_turn_3(void *to_free, void *to_free2, void *to_free3, int ret)
 {
-	(void)dummy;
-	free_file((t_file *)f);
-}
-
-void	free_all(t_shell *shell)
-{
-	ft_dy_tab_del(shell->env);
-	ft_dlstdel(&shell->choices, &free_file_dlst);
+	free(to_free);
+	free(to_free2);
+	free(to_free3);
+	return(ret);
 }

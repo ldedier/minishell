@@ -6,13 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 13:39:39 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/20 13:43:06 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 21:40:46 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ring_bell()
+void	ring_bell(void)
 {
 	char *str;
 

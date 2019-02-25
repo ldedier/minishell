@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:27:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/20 15:45:05 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 21:50:56 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,11 @@ int		ft_update_shell_lvl(t_shell *shell)
 	return (0);
 }
 
-int		ft_init_shell(t_shell *shell, char **env)
+int		init_env(t_shell *shell, char **env)
 {
-	int			i;
-	char		*str;
+	int		i;
+	char	*str;
 
-	shell->running = 1;
-	shell->should_display = 1;
-	shell->choices = NULL;
-	if (!(shell->env = ft_dy_tab_new(64)))
-		return (1);
-	if (!(g_glob.command = ft_dy_str_new(128)))
-		return (1);
-	g_glob.command->current_index = 0;
-	g_glob.command->nb_chars = 0;
-	g_glob.cursor = 0;
 	i = 0;
 	while (env[i])
 	{
@@ -67,6 +57,23 @@ int		ft_init_shell(t_shell *shell, char **env)
 		}
 		i++;
 	}
+	return (0);
+}
+
+int		ft_init_shell(t_shell *shell, char **env)
+{
+	shell->running = 1;
+	shell->should_display = 1;
+	shell->choices = NULL;
+	if (!(shell->env = ft_dy_tab_new(64)))
+		return (1);
+	if (!(g_glob.command = ft_dy_str_new(128)))
+		return (1);
+	g_glob.command->current_index = 0;
+	g_glob.command->nb_chars = 0;
+	g_glob.cursor = 0;
+	if (init_env(shell, env))
+		return (1);
 	if (ft_update_shell_lvl(shell))
 		return (1);
 	return (0);

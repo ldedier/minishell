@@ -6,49 +6,11 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:29:00 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/19 21:18:42 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/24 22:50:42 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		putchar_int(int i)
-{
-	ft_putchar(i);
-	return (0);
-}
-
-int		reset_shell(int ret)
-{
-	if (tcsetattr(0, TCSAFLUSH, &g_glob.term_init) == -1)
-		return (-1);
-	return (ret);
-}
-
-int		set_shell(int ret)
-{
-	if (tcsetattr(0, TCSADRAIN, &g_glob.term) == -1)
-		return (-1);
-	return (ret);
-}
-
-void	move(int x, int y)
-{
-	char *res;
-
-	res = tgetstr("cm", NULL);
-	tputs(tgoto(res, x, y), 1, putchar_int);
-}
-
-int		clear_all(void)
-{
-	char *res;
-
-	if (!(res = tgetstr("cl", NULL)))
-		return (-1);
-	tputs(res, 1, putchar_int);
-	return (0);
-}
 
 int		get_file_in_dir(char *filename, char *dirname)
 {
@@ -66,5 +28,28 @@ int		get_file_in_dir(char *filename, char *dirname)
 		}
 	}
 	closedir(dir);
+	return (0);
+}
+
+int		get_path_and_file_from_str(char *str, char **path, char **file)
+{
+	int index;
+
+	*path = NULL;
+	*file = NULL;
+	if ((index = ft_strichr_last(str, '/')) == -1)
+	{
+		if (!(*path = ft_strdup("")))
+			return (1);
+		if (!(*file = ft_strdup(str)))
+			return (ft_free_turn(path, 1));
+	}
+	else
+	{
+		if (!(*path = ft_strndup(str, index + 1)))
+			return (1);
+		if (!(*file = ft_strnrest(str, index + 1)))
+			return (ft_free_turn(path, 1));
+	}
 	return (0);
 }
