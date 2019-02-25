@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 23:42:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/10 16:56:00 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 13:34:43 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ int		describe_entry(char *param, char *entry, char **env_value)
 
 int		ft_end_expansion(char c)
 {
-	return (ft_isseparator(c) || c == '$' || c == '~');
+	return (ft_isseparator(c) || c == '$' || c == '~' || c == '/');
 }
