@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 22:50:14 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 22:50:20 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 23:32:46 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		putchar_int(int i)
 {
-	ft_putchar(i);
+	ft_putchar_fd(i, 0);
 	return (0);
 }
 

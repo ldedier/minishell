@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 20:30:39 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 13:23:40 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 23:26:58 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		ft_print_cd_errors(char *path)
 	struct stat st;
 
 	if (access(path, F_OK))
-		ft_printf("%s: cd: %s: Not such file or directory\n",
+		ft_dprintf(2, "%s: cd: %s: Not such file or directory\n",
 				SH_NAME, path);
 	else
 	{
@@ -26,9 +26,9 @@ int		ft_print_cd_errors(char *path)
 		else
 		{
 			if (!S_ISDIR(st.st_mode))
-				ft_printf("%s: cd: %s: Not a directory\n", SH_NAME, path);
+				ft_dprintf(2, "%s: cd: %s: Not a directory\n", SH_NAME, path);
 			else if (access(path, X_OK))
-				ft_printf("%s: cd: %s: Permission denied\n", SH_NAME, path);
+				ft_dprintf(2, "%s: cd: %s: Permission denied\n", SH_NAME, path);
 		}
 	}
 	return (1);
@@ -65,7 +65,7 @@ int		ft_process_ms_cd_args(t_shell *shell, int flag, int i)
 		}
 		else
 		{
-			ft_printf("%s: cd: OLDPWD not set\n", SH_NAME);
+			ft_dprintf(2, "%s: cd: OLDPWD not set\n", SH_NAME);
 			return (1);
 		}
 	}
@@ -96,7 +96,7 @@ int		ms_cd(t_shell *shell)
 		return (ft_process_ms_cd(home_str, flag, shell));
 	else
 	{
-		ft_printf("%s: cd: HOME not set\n", SH_NAME);
+		ft_dprintf(2, "%s: cd: HOME not set\n", SH_NAME);
 		return (1);
 	}
 	return (1);

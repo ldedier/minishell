@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 23:52:50 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 13:24:16 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 23:11:39 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 char	*get_home_dup(t_shell *shell)
 {
-	char *str;
+	char			*str;
+	struct passwd	*pwd;
+	uid_t			uid;
 
 	if (!(str = get_env_value((char **)shell->env->tbl, "HOME")))
-		return (ft_strdup(LOCAL_HOME));
+	{
+		uid = geteuid();
+		if (!(pwd = getpwuid(uid)))
+			return (NULL);
+		else
+			return (ft_strdup(pwd->pw_dir));
+	}
 	else
 		return (ft_strdup(str));
 }

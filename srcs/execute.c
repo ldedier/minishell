@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 22:31:45 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 23:53:34 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int		process_execute(char *path, t_shell *shell)
 		wait(&stat_loc);
 		if (set_shell(0) == -1)
 			return (1);
-		shell->should_display = !(WIFSIGNALED(stat_loc));
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 22:28:34 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 13:25:11 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 22:37:55 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,28 @@ int		add_to_env(t_dy_tab *env, char *key, char *value)
 	return (0);
 }
 
+int		is_bad_assignment(char *entry, int *key_len)
+{
+	int len;
+
+	if ((len = ft_strlen(entry)) < 3)
+		return (1);
+	if ((*key_len = get_key_len(entry)) <= 0)
+		return (1);
+	return (0);
+}
+
 int		ft_process_set_env_equal(char *entry, t_dy_tab *env)
 {
 	char	*value;
 	char	*key;
 	int		key_len;
 
-	if ((key_len = get_key_len(entry)) == -1)
+	if (is_bad_assignment(entry, &key_len))
+	{
+		ft_dprintf(2, "%s: \'%s\' bad assignment\n", SH_NAME, entry);
 		return (1);
+	}
 	if (!(key = ft_strndup(entry, key_len)))
 		return (-1);
 	if (!(value = ft_strnrest(entry, key_len + 1)))
@@ -76,16 +90,16 @@ int		ft_process_set_env_equal(char *entry, t_dy_tab *env)
 
 int		ms_setenv(t_shell *shell)
 {
-	if (ft_splitlen(shell->params) == 1)
-		return (1);
-	else if (ft_splitlen(shell->params) == 2)
-		return (ft_process_set_env_equal(shell->params[1], shell->env));
-	else if (ft_splitlen(shell->params) == 3)
+	int i;
+	int len;
+
+	len = ft_splitlen(shell->params);
+	i = 1;
+	while (i < len)
 	{
-		if (add_to_env(shell->env, shell->params[1], shell->params[2]))
+		if (ft_process_set_env_equal(shell->params[i], shell->env) == -1)
 			return (-1);
+		i++;
 	}
-	else
-		ft_dprintf(2, "%s: bad assignment\n", SH_NAME);
 	return (1);
 }

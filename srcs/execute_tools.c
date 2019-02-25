@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 03:30:55 by ldedier           #+#    #+#             */
-/*   Updated: 2019/01/30 05:39:19 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 23:37:50 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		check_execute(char *full_path, t_shell *shell)
 
 	if (access(full_path, F_OK))
 	{
-		ft_printf("minishell: %s: command not found\n", shell->params[0]);
+		ft_dprintf(2, "minishell: %s: command not found\n", shell->params[0]);
 		return (1);
 	}
 	else
@@ -39,12 +39,14 @@ int		check_execute(char *full_path, t_shell *shell)
 			return (-1);
 		if (S_ISDIR(st.st_mode))
 		{
-			ft_printf("minishell: %s: command not found\n", shell->params[0]);
+			ft_dprintf(2, "minishell: %s: command not found\n",
+				shell->params[0]);
 			return (1);
 		}
 		else if (access(full_path, X_OK))
 		{
-			ft_printf("minishell: permission denied: %s\n", shell->params[0]);
+			ft_dprintf(2, "minishell: permission denied: %s\n",
+				shell->params[0]);
 			return (1);
 		}
 	}

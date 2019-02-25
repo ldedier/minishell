@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 22:43:23 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 22:45:34 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 23:39:25 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		process_keys_ret(t_shell *shell, t_dy_str *command,
 	{
 		if (command->current_size == 0)
 		{
-			ft_printf("exit\n");
+			ft_dprintf(0, "exit\n");
 			shell->running = 0;
 			return (CTRL_D);
 		}

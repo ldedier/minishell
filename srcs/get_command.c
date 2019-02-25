@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:31:34 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 22:43:46 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 23:52:30 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int		render_command_line(t_dy_str *command, int cursor_inc)
 	go_up_to_prompt(g_glob.winsize.ws_col, g_glob.cursor);
 	str = tgetstr("cd", NULL);
 	tputs(str, 1, putchar_int);
-	ft_printf("%s%s%s%s", BOLD, CYAN, PROMPT, EOC);
-	ft_printf("%s", command->str);
+	ft_dprintf(0, "%s%s%s%s", BOLD, CYAN, PROMPT, EOC);
+	ft_dprintf(0, "%s", command->str);
 	g_glob.cursor += cursor_inc;
 	replace_cursor_after_render();
 	return (0);
@@ -51,9 +51,7 @@ int		get_command(t_shell *shell, t_dy_str *command)
 	ft_bzero(command->str, command->max_size);
 	command->current_index = 0;
 	command->nb_chars = 0;
-	if (shell->should_display)
-		ft_printf("%s%s%s%s", BOLD, CYAN, PROMPT, EOC);
-	shell->should_display = 1;
+	render_command_line(command, 0);
 	if ((ret = get_keys(shell, command)))
 		return (ret);
 	return (0);

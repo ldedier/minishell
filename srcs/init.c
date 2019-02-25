@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:27:37 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 21:50:56 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 23:48:56 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int		init_env(t_shell *shell, char **env)
 int		ft_init_shell(t_shell *shell, char **env)
 {
 	shell->running = 1;
-	shell->should_display = 1;
 	shell->choices = NULL;
 	if (!(shell->env = ft_dy_tab_new(64)))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 13:45:53 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 21:53:13 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 23:33:46 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	go_up_to_prompt(int width, int cursor)
 
 	str = tgetstr("up", NULL);
 	i = 0;
-	ft_printf(" ");
+	ft_dprintf(0, " ");
 	val = ((get_true_cursor_pos(cursor)) / width);
 	while (i < val)
 	{

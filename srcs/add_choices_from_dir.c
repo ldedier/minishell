@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 00:06:33 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 21:21:15 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/26 00:06:05 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int			add_choices_from_dir(t_shell *shell, t_word *word, char *dirname,
 		return (0);
 	while ((entry = readdir(dir)) != NULL)
 	{
+		if (!ft_strncmp(entry->d_name, ".", 1) && word->to_compare[0] != '.')
+			continue;
 		if (!ft_strncmp(entry->d_name, word->to_compare, len))
 		{
 			if (process_add_choices_from_dir(shell, entry, prefix))

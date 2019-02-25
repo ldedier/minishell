@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 22:45:06 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/25 23:48:52 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <pwd.h>
 # include <termcap.h>
 # include <term.h>
 # include <sys/ioctl.h>
@@ -87,7 +88,6 @@ typedef struct		s_expansion_parser
 typedef struct		s_shell
 {
 	char			running;
-	char			should_display;
 	char			**params;
 	t_dlist			*choices;
 	int				choices_common_len;
