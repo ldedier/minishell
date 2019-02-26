@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:25:43 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 16:57:38 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/26 23:14:27 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_dlstpop_ptr(t_dlist **list)
 {
-	void    *content;
+	void	*content;
 	t_dlist *ptr;
 	t_dlist *next;
 

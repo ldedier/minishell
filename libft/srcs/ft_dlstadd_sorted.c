@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 20:21:57 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/20 20:57:15 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/26 23:13:32 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	add_node_next_to_node(t_dlist *node, t_dlist *to_add)
 int		ft_dlstadd_sorted(t_dlist **dlst,
 			void *content, int (*sort)(void*, void *))
 {
-	int     first;
+	int		first;
 	t_dlist	*to_add;
 	t_dlist	*ptr;
 

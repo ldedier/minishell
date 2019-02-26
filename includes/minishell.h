@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/25 23:48:52 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/26 23:17:29 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 
 # define CTRL_D				2
 # define READ_BUFF_SIZE		4
-
 
 /*
 ** start_index	: index of the word in the buffer

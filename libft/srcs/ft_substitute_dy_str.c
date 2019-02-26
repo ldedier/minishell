@@ -6,13 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 16:54:15 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/21 18:28:38 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/26 23:16:36 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void ft_suppr_n_char_index(char *str, int index, int len)
+static void	ft_suppr_n_char_index(char *str, int index, int len)
 {
 	int i;
 
@@ -52,7 +52,7 @@ static void	ft_inject_str_in_str(char *str, char *to_inject, int start_index,
 ** the len characters starting from that index
 */
 
-int         ft_substitute_dy_str(t_dy_str *d_str, char *to_inject,
+int			ft_substitute_dy_str(t_dy_str *d_str, char *to_inject,
 				int index_to_inject, int len)
 {
 	int necessary_size;

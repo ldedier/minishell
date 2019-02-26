@@ -6,13 +6,13 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 18:39:18 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/18 16:47:30 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/26 23:16:13 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_nb_words_whitespace(char const *s)
+int			ft_nb_words_whitespace(char const *s)
 {
 	int res;
 	int parseword;
