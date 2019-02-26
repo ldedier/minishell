@@ -6,18 +6,11 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:59:05 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/24 19:08:49 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 00:33:31 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	handle_kill(int signal)
-{
-	(void)signal;
-	ft_dprintf(2, "HANDLE SIGKILL\n");
-	exit(reset_shell(0));
-}
 
 void	handle_resize(int signal)
 {
@@ -29,10 +22,14 @@ void	handle_resize(int signal)
 void	init_signals(void)
 {
 	signal(SIGWINCH, handle_resize);
-	signal(SIGQUIT, handle_kill);
-	signal(SIGTSTP, handle_kill);
-	signal(SIGSTOP, handle_kill);
-	signal(SIGCONT, handle_kill);
-	signal(SIGKILL, handle_sigint);
-	signal(SIGINT, handle_sigint);
+	signal(SIGALRM, transmit_sig_and_die);
+	signal(SIGTERM, transmit_sig_and_die);
+	signal(SIGHUP, transmit_sig_and_die);
+	signal(SIGABRT, transmit_sig_and_die);
+	signal(SIGCONT, transmit_sig);
+	signal(SIGQUIT, transmit_sig);
+	signal(SIGTSTP, transmit_sig);
+	signal(SIGSTOP, transmit_sig);
+	signal(SIGKILL, transmit_sig);
+	signal(SIGINT, transmit_sig);
 }

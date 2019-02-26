@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/26 23:17:29 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 00:40:34 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ int					ft_process_set_env_equal(char *entry, t_dy_tab *env);
 int					add_to_env(t_dy_tab *env, char *key, char *value);
 int					preprocess_expansions_str(char **str, t_shell *shell);
 void				free_all(t_shell *shell);
-void				handle_sigint(int signal);
+void				transmit_sig(int signal);
+void				transmit_sig_and_die(int signal);
 int					ft_update_old_pwd(char *old_pwd, char *path, t_cd_opt flag,
 						t_shell *shell);
 int					process_ms_env(t_dy_tab *env);
@@ -186,4 +187,5 @@ void				process_right(t_dy_str *command);
 int					get_keys(t_shell *shell, t_dy_str *command);
 int					add_to_command(t_dy_str *command,
 						unsigned char buffer[READ_BUFF_SIZE], int nb_bytes);
+int					process_execute(char *path, t_shell *shell);
 #endif

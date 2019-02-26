@@ -6,19 +6,19 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 02:34:27 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/25 23:06:02 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 00:41:10 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//void __attribute__((destructor)) end();
-//void    end(void) //permet de mieux checker les leaks !
-//{
-//	ft_printf("destructor loop\n");
-//	while(1);
-//}
-
+/*
+void __attribute__((destructor)) end();
+void    end(void) //permet de mieux checker les leaks !
+{
+	ft_printf("destructor loop\n");
+	while(1);
+}
+*/
 int		preprocess_expansions(t_shell *shell)
 {
 	int		i;
