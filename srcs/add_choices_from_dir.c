@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 00:06:33 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/26 00:06:05 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/26 23:08:14 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,31 @@ void		add_node_next_to_node(t_dlist **node, t_dlist *to_add)
 		*node = to_add;
 }
 
-t_file		*new_file(char *str)
+t_file		*new_file(t_shell *shell, char *str)
 {
-	t_file *res;
+	t_file	*res;
+	char	*path;
 
 	if (!(res = (t_file *)malloc(sizeof(t_file))))
 		return (NULL);
 	res->name = str;
-	if (lstat(res->name, &res->st) == -1)
+	if (!(path = ft_strdup(res->name)))
+	{
+		free(res);
+		return (NULL);
+	}
+	if (!ft_strncmp(path, "~/", 2) &&
+			process_subst_home(shell, &path))
+	{
+		free(path);
+		free(res);
+		return (NULL);
+	}
+	if (lstat(path, &res->st) == -1)
 		res->unstatable = 1;
 	else
 		res->unstatable = 0;
+	free(path);
 	return (res);
 }
 
@@ -57,13 +71,10 @@ int			process_add_choices_from_dir(t_shell *shell,
 		return (1);
 	if ((ret = ft_preprocess_choice_add(shell, str, &prev_to_add)) != 1)
 	{
-		if (!(file = new_file(str)))
-			return (1);
-		if (!(to_add = ft_dlstnew_ptr(file, sizeof(t_file))))
-		{
-			free(file);
+		if (!(file = new_file(shell, str)))
 			return (ft_free_turn(str, 1));
-		}
+		if (!(to_add = ft_dlstnew_ptr(file, sizeof(t_file))))
+			return (ft_free_turn_2(str, file, 1));
 		add_node_next_to_node(prev_to_add, to_add);
 		if (ret)
 			shell->choices = shell->choices->prev;
