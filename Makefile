@@ -6,7 +6,7 @@
 #    By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/12 13:39:53 by ldedier           #+#    #+#              #
-#    Updated: 2019/02/27 00:40:50 by ldedier          ###   ########.fr        #
+#    Updated: 2019/02/27 17:51:23 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ SRCDIR   = srcs
 OBJDIR   = objs
 BINDIR   = .
 INCLUDESDIR = includes
-
 LIBFTDIR = libft
+SPEED = -j1
 LIBFT_INCLUDEDIR = includes
 LIBFT = $(LIBFTDIR)/libft.a
 
@@ -49,27 +49,26 @@ INCLUDES = $(addprefix $(INCLUDESDIR)/, $(INCLUDES_NO_PREFIX))
 
 INC = -I $(INCLUDESDIR) -I $(LIBFTDIR)/$(LIBFT_INCLUDEDIR)\
 
-CFLAGS = -DPATH=$(PWD) $(INC) #-Wall -Wextra -Werror $(INC)
+CFLAGS = -DPATH=$(PWD) -Wall -Wextra -Werror $(INC)
 LFLAGS = -L $(LIBFTDIR) -lft -ltermcap
 
 ifeq ($(DEBUG), 1)
 	LFLAGS += -fsanitize=address
 	CFLAGS += -DDEBUG
 	CC += -g3
+else
+	SPEED = -j8
 endif
 
-opti:
-	@make all -j8
-
 all:
-	@make -C $(LIBFTDIR) opti
-	@make $(BINDIR)/$(NAME)
+	@make -C $(LIBFTDIR) $(SPEED)
+	@make $(BINDIR)/$(NAME) $(SPEED)
 
 debug:
-	@make opti DEBUG=1
+	@make all DEBUG=1
 
 $(LIBFT):
-	@make -C $(LIBFTDIR) opti
+	@make -C $(LIBFTDIR)
 
 $(BINDIR)/$(NAME): $(OBJECTS) $(LIBFT)
 	@$(CC) -o $@ $^ $(CFLAGS) $(LFLAGS) 
@@ -88,6 +87,6 @@ fclean: clean
 	@make fclean -C $(LIBFTDIR)
 	@rm -f $(BINDIR)/$(NAME)
 
-re: fclean opti
+re: fclean all
 
 .PHONY: all clean fclean re

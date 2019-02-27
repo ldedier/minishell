@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/27 00:40:05 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 18:02:34 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		execute_command_path(t_shell *shell, char *path_str)
 			process_execute(full_path, shell);
 			free(full_path);
 			ft_free_split(path_split);
-			return (0);
+			return (2);
 		}
 		i++;
 	}

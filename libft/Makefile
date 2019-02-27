@@ -6,7 +6,7 @@
 #    By: ldedier <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/06 18:20:16 by ldedier           #+#    #+#              #
-#    Updated: 2019/02/24 21:32:59 by ldedier          ###   ########.fr        #
+#    Updated: 2019/02/27 17:22:06 by ldedier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,9 +84,6 @@ ifeq ($(DEBUG), 1)
 	CFLAGS += -DDEBUG
 	CC += -g3
 endif
-
-opti:
-	@make all -j
 
 all: $(BINDIR)/$(NAME)
 

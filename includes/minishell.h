@@ -6,15 +6,15 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/27 00:40:34 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 17:52:35 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdlib.h>
 # include "libft.h"
+# include <stdlib.h>
 # include <dirent.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
@@ -23,13 +23,9 @@
 # include <termcap.h>
 # include <term.h>
 # include <sys/ioctl.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <errno.h>
 
 # define CWD_LEN	2048
 # define SH_NAME	"minishell"
-# define LOCAL_HOME	"/Users/ldedier"
 # define PROMPT		"$minishell> "
 
 # define CTRL_D				2

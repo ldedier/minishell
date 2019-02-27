@@ -6,19 +6,12 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 02:34:27 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/27 00:41:10 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 18:07:37 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-void __attribute__((destructor)) end();
-void    end(void) //permet de mieux checker les leaks !
-{
-	ft_printf("destructor loop\n");
-	while(1);
-}
-*/
+
 int		preprocess_expansions(t_shell *shell)
 {
 	int		i;
@@ -48,7 +41,11 @@ int		preprocess_expansions(t_shell *shell)
 
 int		process_command(char **command, t_shell *shell)
 {
-	preprocess_expansions_str(command, shell);
+	int ret;
+
+	ret = 0;
+	if (preprocess_expansions_str(command, shell))
+		return (1);
 	if (!(shell->params = ft_split_whitespace(*command)))
 		return (1);
 	if (ft_splitlen(shell->params) == 0)
@@ -58,11 +55,16 @@ int		process_command(char **command, t_shell *shell)
 	}
 	else
 	{
-		preprocess_expansions(shell);
-		execute_command(shell);
+		if (preprocess_expansions(shell) == -1)
+		{
+			ft_free_split(shell->params);
+			return (1);
+		}
+		if (execute_command(shell) == -1)
+			ret = 1;
 	}
 	ft_free_split(shell->params);
-	return (0);
+	return (ret);
 }
 
 int		await_command(t_shell *shell)
@@ -74,7 +76,7 @@ int		await_command(t_shell *shell)
 	if ((ret = get_command(shell, g_glob.command)))
 		return (ret);
 	if (!(command_split = ft_strsplit(g_glob.command->str, ';')))
-		return (ft_free_turn_dy_str(g_glob.command, 1));
+		return (1);
 	else
 	{
 		i = 0;
