@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 22:43:23 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/25 23:39:25 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 19:29:05 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,9 @@ int		process_escape_sequence(t_dy_str *command,
 void	process_keys(t_shell *shell, t_dy_str *command,
 				unsigned char *buffer)
 {
+	(void)shell;
 	if (buffer[0] == 27)
 		process_escape_sequence(command, buffer);
-	else if (buffer[0] == 9)
-		process_tab(shell, command);
 	else if (buffer[0] == 12)
 		process_clear(command);
 	else if (buffer[0] == 127)
@@ -77,6 +76,8 @@ int		process_keys_ret(t_shell *shell, t_dy_str *command,
 			return (CTRL_D);
 		}
 	}
+	else if (buffer[0] == 9 && process_tab(shell, command))
+		return (MALLOC_ERROR);
 	return (1);
 }
 
@@ -97,7 +98,7 @@ int		get_keys(t_shell *shell, t_dy_str *command)
 		}
 		process_keys(shell, command, buffer);
 		ret = process_keys_ret(shell, command, buffer);
-		if (ret == CTRL_D || ret == 0)
+		if (ret == CTRL_D || ret == 0 || ret == MALLOC_ERROR)
 			return (ret);
 		ft_bzero(buffer, READ_BUFF_SIZE);
 	}

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 13:38:12 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/27 17:52:35 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 19:30:15 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define PROMPT		"$minishell> "
 
 # define CTRL_D				2
+# define MALLOC_ERROR		3
 # define READ_BUFF_SIZE		4
 
 /*

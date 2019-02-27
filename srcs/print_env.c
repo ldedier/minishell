@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 16:49:58 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/14 13:25:30 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 19:24:07 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**ft_split_cpy_index(char **split, int index)
 	len = ft_splitlen(split) - index;
 	if (len < 0)
 		return (NULL);
-	if (!(res = (char **)malloc(sizeof(char *) * (len + 1))))
+	if (!(res = (char **)ft_memalloc(sizeof(char *) * (len + 1))))
 		return (NULL);
 	i = index;
 	while (split[i])

@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 16:45:53 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/27 18:59:18 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 19:10:02 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_all(t_shell *shell)
 		free(g_glob.command->str);
 		free(g_glob.command);
 	}
-	ft_dy_tab_del(shell->env);
+	if (shell->env)
+		ft_dy_tab_del(shell->env);
 	ft_dlstdel(&shell->choices, &free_file_dlst);
 }
