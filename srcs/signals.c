@@ -6,7 +6,7 @@
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 19:59:05 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/27 00:33:31 by ldedier          ###   ########.fr       */
+/*   Updated: 2019/02/27 18:59:26 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	handle_resize(int signal)
 {
 	(void)signal;
 	ioctl(0, TIOCGWINSZ, &g_glob.winsize);
-	render_command_line(g_glob.command, 0);
+	if (g_glob.command)
+		render_command_line(g_glob.command, 0);
 }
 
 void	init_signals(void)
