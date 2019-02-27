@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldedier <ldedier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/12 22:25:21 by ldedier           #+#    #+#             */
-/*   Updated: 2019/02/27 18:02:34 by ldedier          ###   ########.fr       */
+/*   Created: 2019/02/27 18:17:13 by ldedier           #+#    #+#             */
+/*   Updated: 2019/02/27 18:29:47 by ldedier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int		execute_command_no_path(t_shell *shell)
 			return (1);
 		if (!(full_path = ft_strjoin_3(cwd, "/", shell->params[0])))
 			return (1);
-		process_execute(full_path, shell);
+		if (process_execute(full_path, shell) == -1)
+			return (ft_free_turn(full_path, -1));
 		free(full_path);
 		return (1);
 	}
@@ -37,7 +38,9 @@ int		execute_command_path(t_shell *shell, char *path_str)
 	char	**path_split;
 	int		i;
 	char	*full_path;
+	int		ret;
 
+	ret = 0;
 	if (!(path_split = ft_strsplit(path_str, ':')))
 		return (1);
 	i = 0;
@@ -46,12 +49,12 @@ int		execute_command_path(t_shell *shell, char *path_str)
 		if (get_file_in_dir(shell->params[0], path_split[i]))
 		{
 			if (!(full_path = ft_strjoin_3(path_split[i], "/",
-							shell->params[0])))
+					shell->params[0])))
 				return (1);
-			process_execute(full_path, shell);
+			ret = process_execute(full_path, shell);
 			free(full_path);
 			ft_free_split(path_split);
-			return (2);
+			return (ret == -1 ? -1 : 0);
 		}
 		i++;
 	}
